@@ -9,7 +9,7 @@ namespace Interfaces.Services {
          * 
          * @param user 
          */
-        register(user: Models.Users.User): Models.Users.User;
+        register(user: Models.Users.User): Promise<Interfaces.Models.Users.User>;
 
         /**
          * Log in user by login and password
@@ -17,13 +17,13 @@ namespace Interfaces.Services {
          * @param login 
          * @param password 
          */
-        login(login: string, password: string): Models.Users.User;
+        login(login: string, password: string): Promise<Interfaces.Models.Users.User>;
 
         /**
          * Get user by id
          * 
          * @param id 
          */
-        get(id: number): Models.Users.User;
+        get(id: number): Promise<Interfaces.Models.Users.User>;
     }
 }

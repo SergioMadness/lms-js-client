@@ -5,6 +5,11 @@ namespace Models.Users {
      * User model
      */
     export class User extends Models.Model implements Interfaces.Models.Users.User {
+        toArray(): Map<string, any> {
+            return new Map<string, any>([
+                
+            ]);
+        }
 
         constructor(attributes: Map<string, any>) {
             super();

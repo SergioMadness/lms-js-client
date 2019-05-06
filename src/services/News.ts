@@ -2,7 +2,6 @@
 /// <reference path="../interfaces/services/News.ts" />
 /// <reference path="../interfaces/models/News/News.ts" />
 /// <reference path="HttpMethods.ts" />
-/// <reference path="LMS.ts" />
 
 namespace Services {
     export const METHOD_GET_NEWS = '/api/v1/news';

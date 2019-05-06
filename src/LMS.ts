@@ -1,3 +1,7 @@
+/// <reference path="./interfaces/services/Transport.ts" />
+/// <reference path="./services/News.ts" />
+/// <reference path="./services/Blog.ts" />
+/// <reference path="./services/Users.ts" />
 export class LMS {
     private static transport: Interfaces.Services.Transport;
 
@@ -17,6 +21,12 @@ export class LMS {
 
     blog(): Services.Blog {
         const result = new Services.Blog();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    users(): Services.Users {
+        const result = new Services.Users();
         result.setTransport(LMS.getTransport());
         return result;
     }

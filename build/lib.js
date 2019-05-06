@@ -46,6 +46,236 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var Services;
+(function (Services) {
+    var WebService = (function () {
+        function WebService() {
+            this.limitConstraint = 10;
+            this.offsetConstraint = 0;
+        }
+        WebService.prototype.setTransport = function (transport) {
+            this.transport = transport;
+            return this;
+        };
+        WebService.prototype.getTransport = function () {
+            return this.transport;
+        };
+        WebService.prototype.limit = function (limit) {
+            this.limitConstraint = limit;
+            return this;
+        };
+        WebService.prototype.getLimit = function () {
+            return this.limitConstraint;
+        };
+        WebService.prototype.offset = function (offset) {
+            this.offsetConstraint = offset;
+            return this;
+        };
+        WebService.prototype.getOffset = function () {
+            return this.offsetConstraint;
+        };
+        WebService.prototype.where = function (key, value) {
+            this.whereConditions.set(key, value);
+            return this;
+        };
+        WebService.prototype.getConditions = function () {
+            return this.whereConditions;
+        };
+        WebService.prototype.prepareParams = function () {
+            var result = this.getConditions();
+            result.set('limit', this.getLimit());
+            result.set('offset', this.getOffset());
+            return result;
+        };
+        return WebService;
+    }());
+    Services.WebService = WebService;
+})(Services || (Services = {}));
+var Services;
+(function (Services) {
+    Services.HTTP_METHOD_GET = 'get';
+    Services.HTTP_METHOD_POST = 'post';
+    Services.HTTP_METHOD_DELETE = 'delete';
+    Services.HTTP_METHOD_PATCH = 'patch';
+    Services.HTTP_METHOD_PUT = 'put';
+})(Services || (Services = {}));
+var Services;
+(function (Services) {
+    Services.METHOD_GET_NEWS = '/api/v1/news';
+    Services.METHOD_GET_SINGLE_NEWS = '/api/v1/news/{id}';
+    var News = (function (_super) {
+        __extends(News, _super);
+        function News() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        News.prototype.create = function (attributes) {
+            return new Models.News.News(attributes);
+        };
+        News.prototype.get = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var result, data;
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            result = new Array();
+                            return [4, this.getTransport().send(Services.METHOD_GET_NEWS, Services.HTTP_METHOD_GET, this.prepareParams())];
+                        case 1:
+                            data = _a.sent();
+                            data.forEach(function (element) {
+                                result.push(_this.create(element));
+                            });
+                            return [2, result];
+                    }
+                });
+            });
+        };
+        News.prototype.find = function (id) {
+            return __awaiter(this, void 0, void 0, function () {
+                var data;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4, this.getTransport().send(Services.METHOD_GET_SINGLE_NEWS, Services.HTTP_METHOD_GET, new Map([
+                                ['id', id]
+                            ]))];
+                        case 1:
+                            data = _a.sent();
+                            return [2, this.create(data[0])];
+                    }
+                });
+            });
+        };
+        return News;
+    }(Services.WebService));
+    Services.News = News;
+})(Services || (Services = {}));
+var Services;
+(function (Services) {
+    Services.METHOD_GET_TOPICS = '/api/v1/blog';
+    Services.METHOD_GET_TOPIC = '/api/v1/blog/{id}';
+    var Blog = (function (_super) {
+        __extends(Blog, _super);
+        function Blog() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        Blog.prototype.get = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var result, data;
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            result = new Array();
+                            return [4, this.getTransport().send(Services.METHOD_GET_TOPICS, Services.HTTP_METHOD_GET, this.prepareParams())];
+                        case 1:
+                            data = _a.sent();
+                            data.forEach(function (element) {
+                                result.push(_this.create(element));
+                            });
+                            return [2, result];
+                    }
+                });
+            });
+        };
+        Blog.prototype.find = function (id) {
+            return __awaiter(this, void 0, void 0, function () {
+                var data;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4, this.getTransport().send(Services.METHOD_GET_TOPIC, Services.HTTP_METHOD_GET, new Map([
+                                ['id', id]
+                            ]))];
+                        case 1:
+                            data = _a.sent();
+                            return [2, this.create(data[0])];
+                    }
+                });
+            });
+        };
+        Blog.prototype.create = function (attributes) {
+            return new Models.Blog.Topic(attributes);
+        };
+        return Blog;
+    }(Services.WebService));
+    Services.Blog = Blog;
+})(Services || (Services = {}));
+var Services;
+(function (Services) {
+    Services.METHOD_REGISTRATION = '/api/v1/registration';
+    Services.METHOD_GET_USER = '/api/v1/users/{id}';
+    var Users = (function () {
+        function Users() {
+        }
+        Users.prototype.register = function (user) {
+            return __awaiter(this, void 0, void 0, function () {
+                var response;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4, this.getTransport().send(Services.METHOD_REGISTRATION, Services.HTTP_METHOD_POST, user.toArray())];
+                        case 1:
+                            response = _a.sent();
+                            return [2, this.create(response.shift())];
+                    }
+                });
+            });
+        };
+        Users.prototype.login = function (login, password) {
+            throw new Error("Method not implemented.");
+        };
+        Users.prototype.get = function (id) {
+            throw new Error("Method not implemented.");
+        };
+        Users.prototype.create = function (attributes) {
+            return new Models.Users.User(attributes);
+        };
+        Users.prototype.setTransport = function (transport) {
+            this.transport = transport;
+            return this;
+        };
+        Users.prototype.getTransport = function () {
+            return this.transport;
+        };
+        return Users;
+    }());
+    Services.Users = Users;
+})(Services || (Services = {}));
+System.register("LMS", [], function (exports_1, context_1) {
+    "use strict";
+    var LMS;
+    var __moduleName = context_1 && context_1.id;
+    return {
+        setters: [],
+        execute: function () {
+            LMS = (function () {
+                function LMS() {
+                }
+                LMS.setTransport = function (transport) {
+                    LMS.transport = transport;
+                };
+                LMS.getTransport = function () {
+                    return LMS.transport;
+                };
+                LMS.prototype.news = function () {
+                    var result = new Services.News();
+                    result.setTransport(LMS.getTransport());
+                    return result;
+                };
+                LMS.prototype.blog = function () {
+                    var result = new Services.Blog();
+                    result.setTransport(LMS.getTransport());
+                    return result;
+                };
+                LMS.prototype.users = function () {
+                    var result = new Services.Users();
+                    result.setTransport(LMS.getTransport());
+                    return result;
+                };
+                return LMS;
+            }());
+            exports_1("LMS", LMS);
+        }
+    };
+});
 var Interfaces;
 (function (Interfaces) {
     var Services;
@@ -131,6 +361,9 @@ var Models;
                 _this.fill(attributes);
                 return _this;
             }
+            User.prototype.toArray = function () {
+                return new Map([]);
+            };
             User.prototype.fill = function (attributes) {
                 this.id = attributes.get('id');
                 this.firstName = attributes.get('first_name');
@@ -146,191 +379,6 @@ var Models;
         Users.User = User;
     })(Users = Models.Users || (Models.Users = {}));
 })(Models || (Models = {}));
-var Services;
-(function (Services) {
-    var WebService = (function () {
-        function WebService() {
-            this.limitConstraint = 10;
-            this.offsetConstraint = 0;
-        }
-        WebService.prototype.setTransport = function (transport) {
-            this.transport = transport;
-            return this;
-        };
-        WebService.prototype.getTransport = function () {
-            return this.transport;
-        };
-        WebService.prototype.limit = function (limit) {
-            this.limitConstraint = limit;
-            return this;
-        };
-        WebService.prototype.getLimit = function () {
-            return this.limitConstraint;
-        };
-        WebService.prototype.offset = function (offset) {
-            this.offsetConstraint = offset;
-            return this;
-        };
-        WebService.prototype.getOffset = function () {
-            return this.offsetConstraint;
-        };
-        WebService.prototype.where = function (key, value) {
-            this.whereConditions.set(key, value);
-            return this;
-        };
-        WebService.prototype.getConditions = function () {
-            return this.whereConditions;
-        };
-        WebService.prototype.prepareParams = function () {
-            var result = this.getConditions();
-            result.set('limit', this.getLimit());
-            result.set('offset', this.getOffset());
-            return result;
-        };
-        return WebService;
-    }());
-    Services.WebService = WebService;
-})(Services || (Services = {}));
-var Services;
-(function (Services) {
-    Services.HTTP_METHOD_GET = 'get';
-    Services.HTTP_METHOD_POST = 'post';
-    Services.HTTP_METHOD_DELETE = 'delete';
-    Services.HTTP_METHOD_PATCH = 'patch';
-    Services.HTTP_METHOD_PUT = 'put';
-})(Services || (Services = {}));
-var Services;
-(function (Services) {
-    Services.METHOD_GET_TOPICS = '/api/v1/blog';
-    Services.METHOD_GET_TOPIC = '/api/v1/blog/{id}';
-    var Blog = (function (_super) {
-        __extends(Blog, _super);
-        function Blog() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        Blog.prototype.get = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var result, data;
-                var _this = this;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            result = new Array();
-                            return [4, this.getTransport().send(Services.METHOD_GET_TOPICS, Services.HTTP_METHOD_GET, this.prepareParams())];
-                        case 1:
-                            data = _a.sent();
-                            data.forEach(function (element) {
-                                result.push(_this.create(element));
-                            });
-                            return [2, result];
-                    }
-                });
-            });
-        };
-        Blog.prototype.find = function (id) {
-            return __awaiter(this, void 0, void 0, function () {
-                var data;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4, this.getTransport().send(Services.METHOD_GET_TOPIC, Services.HTTP_METHOD_GET, new Map([
-                                ['id', id]
-                            ]))];
-                        case 1:
-                            data = _a.sent();
-                            return [2, this.create(data[0])];
-                    }
-                });
-            });
-        };
-        Blog.prototype.create = function (attributes) {
-            return new Models.Blog.Topic(attributes);
-        };
-        return Blog;
-    }(Services.WebService));
-    Services.Blog = Blog;
-})(Services || (Services = {}));
-System.register("services/LMS", [], function (exports_1, context_1) {
-    "use strict";
-    var LMS;
-    var __moduleName = context_1 && context_1.id;
-    return {
-        setters: [],
-        execute: function () {
-            LMS = (function () {
-                function LMS() {
-                }
-                LMS.setTransport = function (transport) {
-                    LMS.transport = transport;
-                };
-                LMS.getTransport = function () {
-                    return LMS.transport;
-                };
-                LMS.prototype.news = function () {
-                    var result = new Services.News();
-                    result.setTransport(LMS.getTransport());
-                    return result;
-                };
-                LMS.prototype.blog = function () {
-                    var result = new Services.Blog();
-                    result.setTransport(LMS.getTransport());
-                    return result;
-                };
-                return LMS;
-            }());
-            exports_1("LMS", LMS);
-        }
-    };
-});
-var Services;
-(function (Services) {
-    Services.METHOD_GET_NEWS = '/api/v1/news';
-    Services.METHOD_GET_SINGLE_NEWS = '/api/v1/news/{id}';
-    var News = (function (_super) {
-        __extends(News, _super);
-        function News() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        News.prototype.create = function (attributes) {
-            return new Models.News.News(attributes);
-        };
-        News.prototype.get = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var result, data;
-                var _this = this;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            result = new Array();
-                            return [4, this.getTransport().send(Services.METHOD_GET_NEWS, Services.HTTP_METHOD_GET, this.prepareParams())];
-                        case 1:
-                            data = _a.sent();
-                            data.forEach(function (element) {
-                                result.push(_this.create(element));
-                            });
-                            return [2, result];
-                    }
-                });
-            });
-        };
-        News.prototype.find = function (id) {
-            return __awaiter(this, void 0, void 0, function () {
-                var data;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4, this.getTransport().send(Services.METHOD_GET_SINGLE_NEWS, Services.HTTP_METHOD_GET, new Map([
-                                ['id', id]
-                            ]))];
-                        case 1:
-                            data = _a.sent();
-                            return [2, this.create(data[0])];
-                    }
-                });
-            });
-        };
-        return News;
-    }(Services.WebService));
-    Services.News = News;
-})(Services || (Services = {}));
 var Services;
 (function (Services) {
     function queryParams(params) {
