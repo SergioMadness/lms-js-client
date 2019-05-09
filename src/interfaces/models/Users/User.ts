@@ -1,43 +1,42 @@
-/// <reference path="../Model.ts" />
-/// <reference path="../Arrayable.ts" />
-namespace Interfaces.Models.Users {
+import { Model } from '../Model';
+import { Arrayable } from '../Arrayable';
+
+/**
+ * Interface for user omdel
+ */
+export interface User extends Model<User>, Arrayable {
     /**
-     * Interface for user omdel
+     * User's first name
      */
-    export interface User extends Interfaces.Model<User>, Arrayable {
-        /**
-         * User's first name
-         */
-        firstName: string;
+    firstName: string;
 
-        /**
-         * User's middle name
-         */
-        middleName: string;
+    /**
+     * User's middle name
+     */
+    middleName: string;
 
-        /**
-         * User's last name
-         */
-        lastName: string;
+    /**
+     * User's last name
+     */
+    lastName: string;
 
-        /**
-         * Avatar
-         */
-        avatar: string;
+    /**
+     * Avatar
+     */
+    avatar: string;
 
-        /**
-         * E-mail
-         */
-        email: string;
+    /**
+     * E-mail
+     */
+    email: string;
 
-        /**
-         * Phone
-         */
-        phone: string;
+    /**
+     * Phone
+     */
+    phone: string;
 
-        /**
-         * OAuth token
-         */
-        readonly token: string;
-    }
+    /**
+     * OAuth token
+     */
+    readonly token: string;
 }

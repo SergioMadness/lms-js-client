@@ -1,10 +1,9 @@
-/// <reference path="../models/Blog/Topic.ts" />
-/// <reference path="ListService.ts" />
-namespace Interfaces.Services {
-    /**
-     * Interface for service to work with blog
-     */
-    export interface Blog extends ListService<Models.Blog.Topic> {
+import { ListService } from './ListService';
+import { Topic } from '../models/Blog/Topic';
 
-    }
+/**
+ * Interface for service to work with blog
+ */
+export interface Blog extends ListService<Topic> {
+
 }

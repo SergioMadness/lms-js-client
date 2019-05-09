@@ -1,18 +1,16 @@
-namespace Interfaces {
+/**
+ * Interface for models
+ */
+export interface Model<T> {
     /**
-     * Interface for models
+     * Id
      */
-    export interface Model<T> {
-        /**
-         * Id
-         */
-        readonly id: number;
+    readonly id: number;
 
-        /**
-         * Fill model with data
-         * 
-         * @param attributes 
-         */
-        fill(attributes: object): T;
-    }
+    /**
+     * Fill model with data
+     * 
+     * @param attributes 
+     */
+    fill(attributes: object): T;
 }

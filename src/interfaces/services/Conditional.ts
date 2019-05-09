@@ -1,14 +1,12 @@
-namespace Interfaces.Services {
+/**
+ * Interface for services have conditions
+ */
+export interface Conditional {
     /**
-     * Interface for services have conditions
+     * Add condition
+     * 
+     * @param key 
+     * @param value 
      */
-    export interface Conditional {
-        /**
-         * Add condition
-         * 
-         * @param key 
-         * @param value 
-         */
-        where(key: string, value: any): Conditional;
-    }
+    where(key: string, value: any): Conditional;
 }

@@ -1,32 +1,33 @@
-/// <reference path="./interfaces/services/Transport.ts" />
-/// <reference path="./services/News.ts" />
-/// <reference path="./services/Blog.ts" />
-/// <reference path="./services/Users.ts" />
-export class LMS {
-    private static transport: Interfaces.Services.Transport;
+import { Transport as ITransport } from './interfaces/services/Transport';
+import { News } from './services/News';
+import { Blog } from './services/Blog';
+import { Users } from './services/Users';
 
-    static setTransport(transport: Interfaces.Services.Transport) {
+export class LMS {
+    private static transport: ITransport;
+
+    static setTransport(transport: ITransport) {
         LMS.transport = transport;
     }
 
-    static getTransport(): Interfaces.Services.Transport {
+    static getTransport(): ITransport {
         return LMS.transport;
     }
 
-    news(): Services.News {
-        const result = new Services.News();
+    news(): News {
+        const result = new News();
         result.setTransport(LMS.getTransport());
         return result;
     }
 
-    blog(): Services.Blog {
-        const result = new Services.Blog();
+    blog(): Blog {
+        const result = new Blog();
         result.setTransport(LMS.getTransport());
         return result;
     }
 
-    users(): Services.Users {
-        const result = new Services.Users();
+    users(): Users {
+        const result = new Users();
         result.setTransport(LMS.getTransport());
         return result;
     }

@@ -1,16 +1,19 @@
 {
     "compilerOptions": {
-        "module": "system",
+        "module": "none",
+        "target": "es6",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "outFile": "./build/lib.js",
+        // "outFile": "./build/lib.js",
+        "outDir": "./build",
         "sourceMap": true,
         "lib": [
             "es2015",
             "dom"
         ]
     },
+    // "files": ["src/LMS.ts"],
     "include": [
         "src/**/*"
     ],

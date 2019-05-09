@@ -1,27 +1,26 @@
-/// <reference path="WithLimits.ts" />
-/// <reference path="Conditional.ts" />
-namespace Interfaces.Services {
+import { WithLimits } from './WithLimits';
+import { Conditional } from './Conditional';
+
+/**
+ * Generic interface for list services
+ */
+export interface ListService<T> extends WithLimits, Conditional {
     /**
-     * Generic interface for list services
+     * Get items
      */
-    export interface ListService<T> extends WithLimits, Conditional {
-        /**
-         * Get items
-         */
-        get(): Promise<Array<T>>
+    get(): Promise<Array<T>>
 
-        /**
-         * Get model by id
-         * 
-         * @param id 
-         */
-        find(id: any): Promise<T>;
+    /**
+     * Get model by id
+     * 
+     * @param id 
+     */
+    find(id: any): Promise<T>;
 
-        /**
-         * Create model
-         * 
-         * @param attributes 
-         */
-        create(attributes: object): T;
-    }
+    /**
+     * Create model
+     * 
+     * @param attributes 
+     */
+    create(attributes: object): T;
 }

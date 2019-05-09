@@ -1,6 +1,7 @@
 {
   "name": "lms-api",
   "dependencies": {
+    "axios": "^0.18.0"
   },
   "devDependencies": {},
   "repository": {

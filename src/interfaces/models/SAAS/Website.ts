@@ -1,42 +1,41 @@
-/// <reference path="../Model.ts" />
-namespace Interfaces.Models.SAAS {
+import { Model } from '../Model';
+
+/**
+ * Interface for website model
+ */
+export interface Website extends Model<Website> {
     /**
-     * Interface for website model
+     * Website name
      */
-    export interface Website extends Interfaces.Model<Website> {
-        /**
-         * Website name
-         */
-        readonly name: string;
+    readonly name: string;
 
-        /**
-         * Website domain
-         */
-        readonly domain: string;
+    /**
+     * Website domain
+     */
+    readonly domain: string;
 
-        /**
-         * Logo url
-         */
-        readonly logo: string;
+    /**
+     * Logo url
+     */
+    readonly logo: string;
 
-        /**
-         * Meta tags
-         */
-        readonly meta: object;
+    /**
+     * Meta tags
+     */
+    readonly meta: object;
 
-        /**
-         * Phone
-         */
-        readonly phone: string;
+    /**
+     * Phone
+     */
+    readonly phone: string;
 
-        /**
-         * Email
-         */
-        readonly email: string;
+    /**
+     * Email
+     */
+    readonly email: string;
 
-        /**
-         * Address
-         */
-        readonly address: string;
-    }
+    /**
+     * Address
+     */
+    readonly address: string;
 }

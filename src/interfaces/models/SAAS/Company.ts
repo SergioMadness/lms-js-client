@@ -1,17 +1,17 @@
-/// <reference path="../Model.ts" />
-namespace Interfaces.Models.SAAS {
-    /**
-     * Interface for company model
-     */
-    export interface Company extends Interfaces.Model<Company> {
-        /**
-         * Company name
-         */
-        readonly name: string;
+import { Model } from '../Model';
+import { Package } from '../SAAS/Package';
 
-        /**
-         * Packages available to company
-         */
-        readonly [packages: number]: Package;
-    }
+/**
+ * Interface for company model
+ */
+export interface Company extends Model<Company> {
+    /**
+     * Company name
+     */
+    readonly name: string;
+
+    /**
+     * Packages available to company
+     */
+    readonly [packages: number]: Package;
 }

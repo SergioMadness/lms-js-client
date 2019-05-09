@@ -1,6 +1,6 @@
 {
   "name": "lms-api",
-  "main": "lib.js",
+  "main": "LMS.js",
   "version": "1.0.0",
   "dependencies": {
   },

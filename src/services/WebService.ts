@@ -1,98 +1,97 @@
-/// <reference path="../interfaces/services/Transport.ts" />
-/// <reference path="../interfaces/services/WithLimits.ts" />
-/// <reference path="../interfaces/services/Conditional.ts" />
-namespace Services {
+import { Transport as ITransport } from '../interfaces/services/Transport';
+import { WithLimits } from '../interfaces/services/WithLimits';
+import { Conditional } from '../interfaces/services/Conditional';
+
+/**
+ * Base web service
+ */
+export abstract class WebService<T> {
+    private transport: ITransport;
+
+    private whereConditions: Map<string, any>;
+
+    private limitConstraint: number = 10;
+
+    private offsetConstraint: number = 0;
+
     /**
-     * Base web service
+     * Set transport
+     * 
+     * @param transport 
      */
-    export abstract class WebService<T> {
-        private transport: Interfaces.Services.Transport;
+    setTransport(transport: ITransport): WebService<T> {
+        this.transport = transport;
 
-        private whereConditions: Map<string, any>;
+        return this;
+    }
 
-        private limitConstraint: number = 10;
+    /**
+     * Get transport
+     */
+    getTransport(): ITransport {
+        return this.transport;
+    }
 
-        private offsetConstraint: number = 0;
+    /**
+     * Set limit
+     * 
+     * @param limit 
+     */
+    limit(limit: number): WithLimits {
+        this.limitConstraint = limit;
+        return this;
+    }
 
-        /**
-         * Set transport
-         * 
-         * @param transport 
-         */
-        setTransport(transport: Interfaces.Services.Transport): Services.WebService<T> {
-            this.transport = transport;
+    /**
+     * Get limit
+     */
+    getLimit(): number {
+        return this.limitConstraint;
+    }
 
-            return this;
-        }
+    /**
+     * Set offset
+     * 
+     * @param offset 
+     */
+    offset(offset: number): WithLimits {
+        this.offsetConstraint = offset;
+        return this;
+    }
 
-        /**
-         * Get transport
-         */
-        getTransport(): Interfaces.Services.Transport {
-            return this.transport;
-        }
+    /**
+     * Get offset
+     */
+    getOffset(): number {
+        return this.offsetConstraint;
+    }
 
-        /**
-         * Set limit
-         * 
-         * @param limit 
-         */
-        limit(limit: number): Interfaces.Services.WithLimits {
-            this.limitConstraint = limit;
-            return this;
-        }
+    /**
+     * Add conditions
+     * 
+     * @param key 
+     * @param value 
+     */
+    where(key: string, value: any): Conditional {
+        this.whereConditions.set(key, value);
+        return this;
+    }
 
-        /**
-         * Get limit
-         */
-        getLimit(): number {
-            return this.limitConstraint;
-        }
+    /**
+     * Get conditions
+     */
+    getConditions(): Map<string, any> {
+        return this.whereConditions;
+    }
 
-        /**
-         * Set offset
-         * 
-         * @param offset 
-         */
-        offset(offset: number): Interfaces.Services.WithLimits {
-            this.offsetConstraint = offset;
-            return this;
-        }
+    /**
+     * Get params
+     */
+    prepareParams(): any {
+        let result = this.getConditions();
+        result.set('limit', this.getLimit());
+        result.set('offset', this.getOffset());
 
-        /**
-         * Get offset
-         */
-        getOffset(): number {
-            return this.offsetConstraint;
-        }
-
-        /**
-         * Add conditions
-         * 
-         * @param key 
-         * @param value 
-         */
-        where(key: string, value: any): Interfaces.Services.Conditional {
-            this.whereConditions.set(key, value);
-            return this;
-        }
-
-        /**
-         * Get conditions
-         */
-        getConditions(): Map<string, any> {
-            return this.whereConditions;
-        }
-
-        /**
-         * Get params
-         */
-        prepareParams(): any {
-            let result = this.getConditions();
-            result.set('limit', this.getLimit());
-            result.set('offset', this.getOffset());
-
-            return result;
-        }
+        return result;
     }
 }

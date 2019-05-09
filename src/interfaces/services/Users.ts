@@ -1,29 +1,28 @@
-/// <reference path="../models/Users/User.ts" />
-namespace Interfaces.Services {
+import {User as UserModel} from '../models/Users/User';
+
+/**
+ * Interface for service to work with users
+ */
+export interface Users {
     /**
-     * Interface for service to work with users
+     * Register user
+     * 
+     * @param user 
      */
-    export interface Users {
-        /**
-         * Register user
-         * 
-         * @param user 
-         */
-        register(user: Models.Users.User): Promise<Interfaces.Models.Users.User>;
+    register(user: UserModel): Promise<UserModel>;
 
-        /**
-         * Log in user by login and password
-         * 
-         * @param login 
-         * @param password 
-         */
-        login(login: string, password: string): Promise<Interfaces.Models.Users.User>;
+    /**
+     * Log in user by login and password
+     * 
+     * @param login 
+     * @param password 
+     */
+    login(login: string, password: string): Promise<UserModel>;
 
-        /**
-         * Get user by id
-         * 
-         * @param id 
-         */
-        get(id: number): Promise<Interfaces.Models.Users.User>;
-    }
+    /**
+     * Get user by id
+     * 
+     * @param id 
+     */
+    get(id: number): Promise<UserModel>;
 }
