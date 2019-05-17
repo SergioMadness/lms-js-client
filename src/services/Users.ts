@@ -4,9 +4,9 @@ import { Transport } from '../interfaces/services/Transport';
 import * as constants from './HttpMethods';
 import { User } from '../models/Users/User';
 
-export const METHOD_REGISTRATION = '/api/v1/registration';
+export const METHOD_REGISTRATION = '/api/v2/registration';
 
-export const METHOD_GET_USER = '/api/v1/users/{id}';
+export const METHOD_GET_USER = '/api/v2/users/{id}';
 
 /**
  * Class to work with user services

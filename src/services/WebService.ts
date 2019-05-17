@@ -8,7 +8,7 @@ import { Conditional } from '../interfaces/services/Conditional';
 export abstract class WebService<T> {
     private transport: ITransport;
 
-    private whereConditions: Map<string, any>;
+    private whereConditions: Map<string, any> = new Map<string, any>();
 
     private limitConstraint: number = 10;
 
@@ -93,5 +93,11 @@ export abstract class WebService<T> {
         result.set('offset', this.getOffset());
 
         return result;
+    }
+
+    objectToMap(o: any): Map<string, any> {
+        const mp = new Map;
+        Object.keys(o).forEach(k => { mp.set(k, o[k]) });
+        return mp;
     }
 }

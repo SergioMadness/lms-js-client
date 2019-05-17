@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "none",
         "target": "es6",
+        "moduleResolution": "node",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
@@ -9,11 +10,16 @@
         "outDir": "./build",
         "sourceMap": true,
         "lib": [
-            "es2015",
+            "es2017",
             "dom"
-        ]
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "axios": [
+                "node_modules/axios"
+            ]
+        }
     },
-    // "files": ["src/LMS.ts"],
     "include": [
         "src/**/*"
     ],
