@@ -1,8 +1,8 @@
 import { User as IUserModel } from '../interfaces/models/Users/User';
 import { Users as IUserService } from '../interfaces/services/Users';
-import { Transport } from '../interfaces/services/Transport';
 import * as constants from './HttpMethods';
 import { User } from '../models/Users/User';
+import { WebService } from './WebService';
 
 export const METHOD_REGISTRATION = '/api/v2/registration';
 
@@ -11,9 +11,7 @@ export const METHOD_GET_USER = '/api/v2/users/{id}';
 /**
  * Class to work with user services
  */
-export class Users implements IUserService {
-    private transport: Transport;
-
+export class Users extends WebService implements IUserService {
     async register(user: IUserModel): Promise<IUserModel> {
         const response = await this.getTransport().send(METHOD_REGISTRATION, constants.HTTP_METHOD_POST, user.toArray());
         return this.create(response.shift());
@@ -29,14 +27,5 @@ export class Users implements IUserService {
 
     create(attributes?: Map<string, any>): IUserModel {
         return new User(attributes);
-    }
-
-    setTransport(transport: Transport): Users {
-        this.transport = transport;
-        return this;
-    }
-
-    getTransport(): Transport {
-        return this.transport;
     }
 }

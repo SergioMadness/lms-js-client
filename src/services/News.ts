@@ -1,4 +1,4 @@
-import { WebService } from './WebService';
+import { ListWebService } from './ListWebService';
 import { News as NewsModel } from '../models/News/News';
 import { News as INewsModel } from '../interfaces/models/News/News';
 import * as constants from './HttpMethods';
@@ -11,7 +11,7 @@ export const METHOD_GET_SINGLE_NEWS = '/api/v2/news/{id}';
 /**
  * Class to work with news
  */
-export class News extends WebService<NewsModel> implements INews {
+export class News extends ListWebService<NewsModel> implements INews {
     create(attributes?: Map<string, any>): INewsModel {
         return new NewsModel(attributes);
     }

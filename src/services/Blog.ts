@@ -1,6 +1,6 @@
 import { Blog as IBlogService } from '../interfaces/services/Blog';
 import * as constants from './HttpMethods';
-import { WebService } from './WebService';
+import { ListWebService } from './ListWebService';
 import { Topic } from '../models/Blog/Topic';
 import { Topic as ITopic } from '../interfaces/models/Blog/Topic';
 
@@ -8,7 +8,7 @@ export const METHOD_GET_TOPICS = '/api/v2/blog';
 
 export const METHOD_GET_TOPIC = '/api/v2/blog/{id}';
 
-export class Blog extends WebService<Topic> implements IBlogService {
+export class Blog extends ListWebService<Topic> implements IBlogService {
     async get(): Promise<Array<ITopic>> {
         let result = new Array<ITopic>();
         const data = await this.getTransport().send(METHOD_GET_TOPICS, constants.HTTP_METHOD_GET, this.prepareParams());

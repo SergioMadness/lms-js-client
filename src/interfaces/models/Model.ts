@@ -5,7 +5,7 @@ export interface Model<T> {
     /**
      * Id
      */
-    readonly id: number;
+    readonly id: string;
 
     /**
      * Fill model with data
