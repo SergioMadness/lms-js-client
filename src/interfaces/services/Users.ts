@@ -1,4 +1,5 @@
-import {User as UserModel} from '../models/Users/User';
+import { User as UserModel } from '../models/Users/User';
+import { AuthCredentials } from '../../interfaces/models/Users/AuthCredentials';
 
 /**
  * Interface for service to work with users
@@ -17,7 +18,7 @@ export interface Users {
      * @param login 
      * @param password 
      */
-    login(login: string, password: string): Promise<UserModel>;
+    login(login: string, password: string, clientId: string, clientSecret: string): Promise<AuthCredentials>;
 
     /**
      * Get user by id

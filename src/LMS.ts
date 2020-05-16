@@ -10,9 +10,12 @@ import { Index as IIndex } from "./interfaces/services/Courses/Index";
 import { News as INews } from "./interfaces/services/News";
 import { Blog as IBlog } from "./interfaces/services/Blog";
 import { Index } from './services/Courses/Index';
+import { AuthCredentials } from './interfaces/models/Users/AuthCredentials';
 
 export class LMS {
     private static transport: ITransport;
+
+    private credentials: AuthCredentials;
 
     static setTransport(transport: ITransport) {
         LMS.transport = transport;
@@ -20,6 +23,22 @@ export class LMS {
 
     static getTransport(): ITransport {
         return LMS.transport;
+    }
+
+    constructor(credentials: AuthCredentials) {
+        if (credentials) {
+            this.setCredentials(credentials);
+        }
+    }
+
+    setCredentials(credentials: AuthCredentials): LMS {
+        this.credentials = credentials;
+
+        return this;
+    }
+
+    getCredentials(): AuthCredentials {
+        return this.credentials;
     }
 
     news(): INews {

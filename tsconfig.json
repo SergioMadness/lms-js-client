@@ -10,7 +10,7 @@
         "outDir": "./build",
         "sourceMap": true,
         "lib": [
-            "es2017",
+            "es2019",
             "dom"
         ],
         "baseUrl": ".",

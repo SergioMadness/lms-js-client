@@ -3,6 +3,7 @@ import { Transport as ITransport } from '../interfaces/services/Transport';
 import * as constants from './HttpMethods';
 import axios from 'axios';
 import { rtrim, ltrim } from './Strings';
+import { AuthCredentials } from '../interfaces/models/Users/AuthCredentials';
 
 /**
  * Class to process requests
@@ -10,6 +11,18 @@ import { rtrim, ltrim } from './Strings';
 export class Transport implements ITransport {
 
     baseUrl: string;
+
+    private authCredentials: AuthCredentials;
+
+    setAuthCredentials(credentials: AuthCredentials): ITransport {
+        this.authCredentials = credentials;
+
+        return this;
+    }
+
+    getAuthCredentials(): AuthCredentials {
+        return this.authCredentials;
+    }
 
     /**
      * Send request, get response
@@ -22,29 +35,46 @@ export class Transport implements ITransport {
         let response = null;
         const preparedData = this.prepareData(data);
         const preparedUrl = this.prepareUrl(apiMethod, data);
+
+        let headers = this.authCredentials.isAuthorized() ? {
+            'Authorization': this.authCredentials.getTokenType() + ' ' + this.authCredentials.getAccessToken();
+        } : {};
         switch (httpMethod) {
             case constants.HTTP_METHOD_GET:
                 response = await axios.get(preparedUrl, {
-                    params: preparedData
+                    params: preparedData,
+                    headers: headers
                 });
                 break;
             case constants.HTTP_METHOD_POST:
-                response = await axios.post(preparedUrl, preparedData);
+                response = await axios.post(preparedUrl, preparedData, {
+                    headers: headers
+                });
                 break;
             case constants.HTTP_METHOD_PATCH:
-                response = await axios.patch(preparedUrl, preparedData);
+                response = await axios.patch(preparedUrl, preparedData, {
+                    headers: headers
+                });
                 break;
             case constants.HTTP_METHOD_PUT:
-                response = await axios.put(preparedUrl, preparedData);
+                response = await axios.put(preparedUrl, preparedData, {
+                    headers: headers
+                });
                 break;
             case constants.HTTP_METHOD_DELETE:
                 response = await axios.delete(preparedUrl, {
-                    params: preparedData
+                    params: preparedData,
+                    headers: headers
                 });
                 break;
         }
 
-        return response.data;
+        let result = response.data;
+        if (!Array.isArray(result)) {
+            result = [result];
+        }
+
+        return result;
     }
 
     /**
@@ -66,8 +96,8 @@ export class Transport implements ITransport {
      * 
      * @param data 
      */
-    prepareData(data: Map<string, any>): Map<string, any> {
-        return data;
+    prepareData(data: Map<string, any>): any {
+        return Object.fromEntries(data);
     }
 
     /**
