@@ -5,6 +5,12 @@ import axios from 'axios';
 import { rtrim, ltrim } from './Strings';
 import { AuthCredentials } from '../interfaces/models/Users/AuthCredentials';
 
+const objectToMap = (obj: any) => {
+    const mp = new Map;
+    Object.keys(obj).forEach(k => { mp.set(k, obj[k]) });
+    return mp;
+};
+
 /**
  * Class to process requests
  */
@@ -36,8 +42,8 @@ export class Transport implements ITransport {
         const preparedData = this.prepareData(data);
         const preparedUrl = this.prepareUrl(apiMethod, data);
 
-        let headers = this.authCredentials.isAuthorized() ? {
-            'Authorization': this.authCredentials.getTokenType() + ' ' + this.authCredentials.getAccessToken();
+        let headers = this.authCredentials && this.authCredentials.isAuthorized() ? {
+            'Authorization': this.authCredentials.getTokenType() + ' ' + this.authCredentials.getAccessToken()
         } : {};
         switch (httpMethod) {
             case constants.HTTP_METHOD_GET:
@@ -73,6 +79,9 @@ export class Transport implements ITransport {
         if (!Array.isArray(result)) {
             result = [result];
         }
+        result = result.map(function (value: any) {
+            return objectToMap(value);
+        });
 
         return result;
     }

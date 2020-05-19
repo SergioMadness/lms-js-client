@@ -40,7 +40,7 @@ export class Users extends WebService implements IUserService {
         result.setTokenType(credentials.get('token_type'));
         let expiresDate = new Date();
         expiresDate.setSeconds(expiresDate.getSeconds() + credentials.get('expires_in'));
-        result.setExpiresDate(expiresDate;
+        result.setExpiresDate(expiresDate);
 
         return result;
     }

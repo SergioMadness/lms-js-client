@@ -11,6 +11,8 @@ import { News as INews } from "./interfaces/services/News";
 import { Blog as IBlog } from "./interfaces/services/Blog";
 import { Index } from './services/Courses/Index';
 import { AuthCredentials } from './interfaces/models/Users/AuthCredentials';
+import { Profile } from './interfaces/services/Profile';
+import { Profile as ProfileService } from './services/Profile';
 
 export class LMS {
     private static transport: ITransport;
@@ -73,6 +75,12 @@ export class LMS {
 
     index(): IIndex {
         const result = new Index();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    profile(): Profile {
+        const result = new ProfileService();
         result.setTransport(LMS.getTransport());
         return result;
     }
