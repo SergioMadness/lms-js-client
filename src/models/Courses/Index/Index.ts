@@ -9,6 +9,10 @@ export class Index implements IIndex {
 
     private currentIndex: number;
 
+    getItems(): Array<IndexItem> {
+        return this.items;
+    }
+
     add(item: IndexItem): IIndex {
         this.items.push(item);
 

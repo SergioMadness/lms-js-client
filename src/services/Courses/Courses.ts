@@ -26,7 +26,7 @@ export class Courses extends ListWebService<Course> implements ICourses {
         const data = await this.getTransport().send(METHOD_GET_COURSE, constants.HTTP_METHOD_GET, new Map([
             ['id', id]
         ]));
-        return this.create(this.objectToMap(data.shift()));
+        return this.create(data.shift());
     }
 
     create(attributes: Map<string, any>): Course {

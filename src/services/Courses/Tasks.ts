@@ -40,7 +40,7 @@ export class Tasks extends ListWebService<Task> implements ITasks {
         let result = new Array<Task>();
         const data = await this.getTransport().send(METHOD_GET_TASKS, constants.HTTP_METHOD_GET, this.prepareParams());
         data.forEach((element) => {
-            result.push(this.create(this.objectToMap(element)));
+            result.push(this.create(element));
         });
 
         return result;
@@ -49,9 +49,9 @@ export class Tasks extends ListWebService<Task> implements ITasks {
     async find(id: any): Promise<Task> {
         const data = await this.getTransport().send(METHOD_GET_TASK, constants.HTTP_METHOD_GET, new Map([
             ['courseId', this.getCourseId()],
-            ['id', id]
+            ['taskId', id]
         ]));
-        return this.create(this.objectToMap(data));
+        return this.create(data.shift());
     }
 
     create(attributes: Map<string, any>): Task {

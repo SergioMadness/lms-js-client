@@ -18,20 +18,23 @@ export class Index extends WebService implements IIndex {
         return this.createIndex(data);
     }
 
-    private createIndex(data: Array<any>): IIndexModel {
+    private createIndex(data: Array<Map<any, object>>): IIndexModel {
         let result = new IndexModel();
 
-        for (let i in data) {
+        data.forEach(item => {
             result.add(
-                this.createIndexItem(data[i])
+                this.createIndexItem(item)
             );
-        }
+        });
 
         return result;
     }
 
     private createIndexItem(data: Map<string, any>): IIndexItem {
         let result = new IndexItem();
+        if(!(data instanceof Map)) {
+            data = new Map(Object.entries(data));
+        }
         result.setId(data.get('id'));
         result.setLabel(data.get('label'));
         result.setIsAvailable(data.get('isAvailable'));
@@ -40,9 +43,11 @@ export class Index extends WebService implements IIndex {
         result.setIsSuccessful(data.get('isSuccessful'));
 
         const children = data.get('children') ?? [];
-        for (let i in children) {
-            result.addItem(this.createIndexItem(children[i]));
-        }
+        children.forEach((item: any) => {
+            result.addItem(
+                this.createIndexItem(item)
+            );
+        });
 
         return result;
     }
