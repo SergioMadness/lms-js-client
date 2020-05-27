@@ -3,7 +3,7 @@ import { IndexItem } from "src/interfaces/models/Courses/Index/IndexItem";
 
 export class Index implements IIndex {
 
-    private items: Array<IndexItem>;
+    private items: Array<IndexItem> = new Array<IndexItem>();
 
     private currentItem: IndexItem;
 

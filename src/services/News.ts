@@ -20,7 +20,7 @@ export class News extends ListWebService<NewsModel> implements INews {
         let result = new Array<INewsModel>();
         const data = await this.getTransport().send(METHOD_GET_NEWS, constants.HTTP_METHOD_GET, this.prepareParams());
         data.forEach((element) => {
-            result.push(this.create(this.objectToMap(element)));
+            result.push(this.create(element));
         });
 
         return result;
@@ -30,6 +30,6 @@ export class News extends ListWebService<NewsModel> implements INews {
         const data = await this.getTransport().send(METHOD_GET_SINGLE_NEWS, constants.HTTP_METHOD_GET, new Map([
             ['id', id]
         ]));
-        return this.create(this.objectToMap(data));
+        return this.create(data.shift());
     }
 }

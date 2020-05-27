@@ -17,30 +17,33 @@ import { Profile as ProfileService } from './services/Profile';
 export class LMS {
     private static transport: ITransport;
 
-    private credentials: AuthCredentials;
+    private static credentials: AuthCredentials;
 
     static setTransport(transport: ITransport) {
         LMS.transport = transport;
     }
 
     static getTransport(): ITransport {
+        LMS.transport.setAuthCredentials(LMS.credentials);
         return LMS.transport;
+    }
+
+    static setCredentials(credentials: AuthCredentials) {
+        const transport = LMS.getTransport();
+        LMS.credentials = credentials;
+        if (transport !== null) {
+            transport.setAuthCredentials(credentials);
+        }
+    }
+
+    static getCredentials(): AuthCredentials {
+        return LMS.credentials;
     }
 
     constructor(credentials: AuthCredentials) {
         if (credentials) {
-            this.setCredentials(credentials);
+            LMS.setCredentials(credentials);
         }
-    }
-
-    setCredentials(credentials: AuthCredentials): LMS {
-        this.credentials = credentials;
-
-        return this;
-    }
-
-    getCredentials(): AuthCredentials {
-        return this.credentials;
     }
 
     news(): INews {

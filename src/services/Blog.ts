@@ -13,7 +13,7 @@ export class Blog extends ListWebService<Topic> implements IBlogService {
         let result = new Array<ITopic>();
         const data = await this.getTransport().send(METHOD_GET_TOPICS, constants.HTTP_METHOD_GET, this.prepareParams());
         data.forEach((element) => {
-            result.push(this.create(this.objectToMap(element)));
+            result.push(this.create(element));
         });
 
         return result;
@@ -23,7 +23,7 @@ export class Blog extends ListWebService<Topic> implements IBlogService {
         const data = await this.getTransport().send(METHOD_GET_TOPIC, constants.HTTP_METHOD_GET, new Map([
             ['id', id]
         ]));
-        return this.create(this.objectToMap(data));
+        return this.create(data.shift());
     }
 
     create(attributes: Map<string, any>): ITopic {

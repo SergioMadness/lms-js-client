@@ -13,6 +13,7 @@ export class Course extends Model implements CourseModel {
     }
 
     fill(attributes: Map<string, any>): CourseModel {
+        this.id = attributes.get('id');
         this.title = attributes.get('title');
         this.alias = attributes.get('alias');
         this.note = attributes.get('note');

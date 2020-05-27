@@ -10,9 +10,9 @@ import { Index as IIndexModel } from "../../interfaces/models/Courses/Index/Inde
 export const METHOD_GET_INDEX = '/api/v2/courses/{courseId}/index';
 
 export class Index extends WebService implements IIndex {
-    async get(course: Course): Promise<IIndexModel> {
+    async get(courseId: string): Promise<IIndexModel> {
         const data = await this.getTransport().send(METHOD_GET_INDEX, constants.HTTP_METHOD_GET, new Map([
-            ['courseId', course.id]
+            ['courseId', courseId]
         ]));
 
         return this.createIndex(data);
@@ -23,9 +23,7 @@ export class Index extends WebService implements IIndex {
 
         for (let i in data) {
             result.add(
-                this.createIndexItem(
-                    this.objectToMap(data[i])
-                )
+                this.createIndexItem(data[i])
             );
         }
 
@@ -43,7 +41,7 @@ export class Index extends WebService implements IIndex {
 
         const children = data.get('children') ?? [];
         for (let i in children) {
-            result.addItem(this.createIndexItem(this.objectToMap(children[i])));
+            result.addItem(this.createIndexItem(children[i]));
         }
 
         return result;

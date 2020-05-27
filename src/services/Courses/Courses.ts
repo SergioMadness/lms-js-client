@@ -6,7 +6,7 @@ import { Course as CourseModel } from '../../models/Courses/Course';
 
 export const METHOD_GET_COURSES = '/api/v2/courses';
 
-export const METHOD_GET_COURSE = '/api/v1/courses/{id}';
+export const METHOD_GET_COURSE = '/api/v2/courses/{id}';
 
 /**
  * Service to work with courses
@@ -16,7 +16,7 @@ export class Courses extends ListWebService<Course> implements ICourses {
         let result = new Array<Course>();
         const data = await this.getTransport().send(METHOD_GET_COURSES, constants.HTTP_METHOD_GET, this.prepareParams());
         data.forEach((element) => {
-            result.push(this.create(this.objectToMap(element)));
+            result.push(this.create(element));
         });
 
         return result;
@@ -26,7 +26,7 @@ export class Courses extends ListWebService<Course> implements ICourses {
         const data = await this.getTransport().send(METHOD_GET_COURSE, constants.HTTP_METHOD_GET, new Map([
             ['id', id]
         ]));
-        return this.create(this.objectToMap(data));
+        return this.create(this.objectToMap(data.shift()));
     }
 
     create(attributes: Map<string, any>): Course {

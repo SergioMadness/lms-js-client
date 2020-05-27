@@ -6,5 +6,5 @@ import { Course } from "../../../interfaces/models/Courses/Course";
  */
 export interface Index {
     /** Get index */
-    get(course: Course): Promise<IIndexModel>;
+    get(courseId: string): Promise<IIndexModel>;
 }

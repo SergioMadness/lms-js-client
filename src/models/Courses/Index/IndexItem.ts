@@ -15,7 +15,7 @@ export class IndexItem implements IIndexItem {
 
     private failed: boolean;
 
-    private items: Array<IIndexItem>;
+    private items: Array<IIndexItem> = new Array<IIndexItem>();
 
     setId(id: string): IndexItem {
         this.id = id;
