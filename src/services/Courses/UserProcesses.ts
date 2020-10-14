@@ -1,6 +1,6 @@
 import * as constants from '../HttpMethods';
 import { ListWebService } from '../ListWebService';
-import { UserHasProcess } from 'src/models/Courses/UserProcesses/UserHasProcess';
+import { UserHasProcess } from '../../models/Courses/UserProcesses/UserHasProcess';
 import { UserProcesses as IUserProcesses } from '../../interfaces/services/Courses/UserProcesses';
 
 export const METHOD_GET_USER_PROSESSES = '/api/v2/profile/processes';

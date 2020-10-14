@@ -5,6 +5,7 @@ import { Users } from './services/Users';
 import { Courses } from './services/Courses/Courses';
 import { Tasks } from './services/Courses/Tasks';
 import { Courses as ICourses } from "./interfaces/services/Courses/Courses";
+import { Programs as IPrograms } from "./interfaces/services/Programs/Programs";
 import { Tasks as ITasks } from "./interfaces/services/Courses/Tasks";
 import { Index as IIndex } from "./interfaces/services/Courses/Index";
 import { News as INews } from "./interfaces/services/News";
@@ -13,6 +14,7 @@ import { Index } from './services/Courses/Index';
 import { AuthCredentials } from './interfaces/models/Users/AuthCredentials';
 import { Profile } from './interfaces/services/Profile';
 import { Profile as ProfileService } from './services/Profile';
+import { Programs } from './services/Programs/Programs';
 
 export class LMS {
     private static transport: ITransport;
@@ -66,6 +68,12 @@ export class LMS {
 
     courses(): ICourses {
         const result = new Courses();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    programs(): IPrograms {
+        const result = new Programs();
         result.setTransport(LMS.getTransport());
         return result;
     }
