@@ -1,5 +1,8 @@
 import { Model } from "../../Model"
 import { UserHasProcess as UserHasProcessModel } from "../../../interfaces/models/Courses/UserHasProcess"
+import { Course } from "../Course";
+import { Program } from "../../Programs/Program";
+import { objectToMap } from '../../../services/Helpers';
 
 export class UserHasProcess extends Model implements UserHasProcessModel {
     public processId: string;
@@ -12,6 +15,7 @@ export class UserHasProcess extends Model implements UserHasProcessModel {
     public updatedAt: Date;
     public processType: string;
     public finishedAt: Date;
+    public process: any;
 
     constructor(attributes: Map<string, any>) {
         super();
@@ -46,6 +50,7 @@ export class UserHasProcess extends Model implements UserHasProcessModel {
         this.updatedAt = new Date(attributes.get('updated_at'));
         this.finishedAt = new Date(attributes.get('finished_at'));
         this.processType = attributes.get('process_type');
+        this.process = this.processType === 'course' ? new Course(objectToMap(attributes.get('process'))) : new Program(objectToMap(attributes.get('process')));
 
         return this;
     }

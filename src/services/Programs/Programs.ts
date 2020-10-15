@@ -4,7 +4,7 @@ import { Course } from '../../models/Courses/Course';
 import { Program } from '../../interfaces/models/Programs/Program';
 import { Program as ProgramModel } from '../../models/Programs/Program';
 import { Programs as IPrograms } from '../../interfaces/services/Programs/Programs';
-import { Module } from 'src/models/Programs/Module';
+import { Module } from '../../models/Programs/Module';
 
 export const METHOD_GET_PROGRAMS = '/api/v2/programs';
 

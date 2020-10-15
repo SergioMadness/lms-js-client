@@ -1,15 +1,9 @@
-
 import { Transport as ITransport } from '../interfaces/services/Transport';
 import * as constants from './HttpMethods';
 import axios from 'axios';
 import { rtrim, ltrim } from './Strings';
 import { AuthCredentials } from '../interfaces/models/Users/AuthCredentials';
-
-const objectToMap = (obj: any) => {
-    const mp = new Map;
-    Object.keys(obj).forEach(k => { mp.set(k, obj[k]) });
-    return mp;
-};
+import { objectToMap } from './Helpers';
 
 /**
  * Class to process requests
