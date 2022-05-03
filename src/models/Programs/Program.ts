@@ -1,6 +1,6 @@
 import { Model } from "../Model"
 import { Program as IProgram } from "../../interfaces/models/Programs/Program";
-import { Module } from "src/interfaces/models/Programs/Module";
+import { Module } from "../../interfaces/models/Programs/Module";
 
 export class Program extends Model implements IProgram {
     public title: string;

@@ -1,5 +1,5 @@
 import { Index as IIndex } from "../../../interfaces/models/Courses/Index/Index";
-import { IndexItem } from "src/interfaces/models/Courses/Index/IndexItem";
+import { IndexItem } from "../../../interfaces/models/Courses/Index/IndexItem";
 
 export class Index implements IIndex {
 

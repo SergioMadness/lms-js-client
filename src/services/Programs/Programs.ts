@@ -5,6 +5,8 @@ import { Program } from '../../interfaces/models/Programs/Program';
 import { Program as ProgramModel } from '../../models/Programs/Program';
 import { Programs as IPrograms } from '../../interfaces/services/Programs/Programs';
 import { Module } from '../../models/Programs/Module';
+import { Paginator as IPaginator } from '../../interfaces/models/Paginator';
+import { Paginator } from '../../models/Paginator';
 
 export const METHOD_GET_PROGRAMS = '/api/v2/programs';
 
@@ -14,21 +16,21 @@ export const METHOD_GET_PROGRAM = '/api/v2/programs/{id}';
  * Service to work with courses
  */
 export class Programs extends ListWebService<Program> implements IPrograms {
-    async get(): Promise<Array<Program>> {
+    async get(): Promise<IPaginator<Program>> {
         let result = new Array<Program>();
-        const data = await this.getTransport().send(METHOD_GET_PROGRAMS, constants.HTTP_METHOD_GET, this.prepareParams());
-        data.forEach((element) => {
+        const response = await this.getTransport().send(METHOD_GET_PROGRAMS, constants.HTTP_METHOD_GET, this.prepareParams());
+        response.data.forEach((element: any) => {
             result.push(this.create(element));
         });
 
-        return result;
+        return new Paginator<Program>(result, response.meta.get('total'), response.meta.get('pageQty'), response.meta.get('ipp'));
     }
 
     async find(id: any): Promise<Program> {
-        const data = await this.getTransport().send(METHOD_GET_PROGRAM, constants.HTTP_METHOD_GET, new Map([
+        const response = await this.getTransport().send(METHOD_GET_PROGRAM, constants.HTTP_METHOD_GET, new Map([
             ['id', id]
         ]));
-        return this.create(data.shift());
+        return this.create(response.data);
     }
 
     create(attributes: Map<string, any>): Program {

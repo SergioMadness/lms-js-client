@@ -4,6 +4,8 @@ import axios from 'axios';
 import { rtrim, ltrim } from './Strings';
 import { AuthCredentials } from '../interfaces/models/Users/AuthCredentials';
 import { objectToMap } from './Helpers';
+import { Response as IResponse } from '../interfaces/models/Response';
+import { Response } from '../models/Response';
 
 /**
  * Class to process requests
@@ -13,6 +15,8 @@ export class Transport implements ITransport {
     baseUrl: string;
 
     private authCredentials: AuthCredentials;
+
+    private clientId: string;
 
     setAuthCredentials(credentials: AuthCredentials): ITransport {
         this.authCredentials = credentials;
@@ -31,7 +35,7 @@ export class Transport implements ITransport {
      * @param httpMethod 
      * @param data 
      */
-    async send(apiMethod: string, httpMethod: string, data: Map<string, any>): Promise<Array<Map<string, any>>> {
+    async send(apiMethod: string, httpMethod: string, data: Map<string, any>): Promise<IResponse> {
         let response = null;
         const preparedData = this.prepareData(data);
         const preparedUrl = this.prepareUrl(apiMethod, data);
@@ -69,15 +73,9 @@ export class Transport implements ITransport {
                 break;
         }
 
-        let result = response.data;
-        if (!Array.isArray(result)) {
-            result = [result];
-        }
-        result = result.map(function (value: any) {
+        return new Response(Array.isArray(response.data.data) ? response.data.data.map(function (value: any) {
             return objectToMap(value);
-        });
-
-        return result;
+        }) : objectToMap(response.data.data), objectToMap(response.data.metadata));
     }
 
     /**
@@ -100,6 +98,8 @@ export class Transport implements ITransport {
      * @param data 
      */
     prepareData(data: Map<string, any>): any {
+        data.set('client_id', this.getClientId());
+
         return Object.fromEntries(data);
     }
 
@@ -118,5 +118,22 @@ export class Transport implements ITransport {
      */
     getBaseUrl(): string {
         return this.baseUrl;
+    }
+
+    /**
+     * Set clientId
+     * 
+     * @param id 
+     */
+    setClientId(id: string): Transport {
+        this.clientId = id;
+        return this;
+    }
+
+    /**
+     * Get client id
+     */
+    getClientId(): string {
+        return this.clientId;
     }
 }

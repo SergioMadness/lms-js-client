@@ -3,6 +3,8 @@ import { ListWebService } from "../ListWebService";
 import { Task } from "../../interfaces/models/Courses/Task";
 import { Tasks as ITasks } from "../../interfaces/services/Courses/Tasks";
 import { Task as TaskModel } from '../../models/Courses/Task';
+import { Paginator as IPaginator } from '../../interfaces/models/Paginator';
+import { Paginator } from '../../models/Paginator';
 
 export const METHOD_GET_TASKS = '/api/v2/courses/{courseId}/tasks';
 
@@ -36,22 +38,22 @@ export class Tasks extends ListWebService<Task> implements ITasks {
         return result;
     }
 
-    async get(): Promise<Array<Task>> {
+    async get(): Promise<IPaginator<Task>> {
         let result = new Array<Task>();
-        const data = await this.getTransport().send(METHOD_GET_TASKS, constants.HTTP_METHOD_GET, this.prepareParams());
-        data.forEach((element) => {
+        const response = await this.getTransport().send(METHOD_GET_TASKS, constants.HTTP_METHOD_GET, this.prepareParams());
+        response.data.forEach((element:any) => {
             result.push(this.create(element));
         });
 
-        return result;
+        return new Paginator<Task>(result, response.meta.get('total'), response.meta.get('pageQty'), response.meta.get('ipp'));
     }
 
     async find(id: any): Promise<Task> {
-        const data = await this.getTransport().send(METHOD_GET_TASK, constants.HTTP_METHOD_GET, new Map([
+        const response = await this.getTransport().send(METHOD_GET_TASK, constants.HTTP_METHOD_GET, new Map([
             ['courseId', this.getCourseId()],
             ['taskId', id]
         ]));
-        return this.create(data.shift());
+        return this.create(response.data);
     }
 
     create(attributes: Map<string, any>): Task {

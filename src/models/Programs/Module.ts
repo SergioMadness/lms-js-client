@@ -1,5 +1,5 @@
 import { Model } from "../Model";
-import { Course } from "src/interfaces/models/Courses/Course";
+import { Course } from "../../interfaces/models/Courses/Course";
 import { Module as IModule } from '../../interfaces/models/Programs/Module';
 
 /**

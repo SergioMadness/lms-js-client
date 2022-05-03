@@ -1,4 +1,5 @@
 import { AuthCredentials } from "../../interfaces/models/Users/AuthCredentials";
+import { Response } from "../models/Response";
 
 /**
  * Interface for classes implement communication with web services
@@ -11,7 +12,7 @@ export interface Transport {
      * @param httpMethod 
      * @param data 
      */
-    send(apiMethod: string, httpMethod: string, data: Map<string, any>): Promise<Array<Map<string, any>>>;
+    send(apiMethod: string, httpMethod: string, data: Map<string, any>): Promise<Response>;
 
     /**
      * Set authorization data

@@ -1,5 +1,6 @@
 import { WithLimits } from './WithLimits';
 import { Conditional } from './Conditional';
+import { Paginator } from '../models/Paginator';
 
 /**
  * Generic interface for list services
@@ -8,7 +9,7 @@ export interface ListService<T> extends WithLimits, Conditional {
     /**
      * Get items
      */
-    get(): Promise<Array<T>>
+    get(): Promise<Paginator<T>>
 
     /**
      * Get model by id

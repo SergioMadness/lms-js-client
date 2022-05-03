@@ -1,6 +1,5 @@
 import { WebService } from "../WebService";
 import { Index as IIndex } from "../../interfaces/services/Courses/Index";
-import { Course } from "../../interfaces/models/Courses/Course";
 import * as constants from "../HttpMethods";
 import { IndexItem as IIndexItem } from "../../interfaces/models/Courses/Index/IndexItem";
 import { IndexItem } from "../../models/Courses/Index/IndexItem";
@@ -11,11 +10,11 @@ export const METHOD_GET_INDEX = '/api/v2/courses/{courseId}/index';
 
 export class Index extends WebService implements IIndex {
     async get(courseId: string): Promise<IIndexModel> {
-        const data = await this.getTransport().send(METHOD_GET_INDEX, constants.HTTP_METHOD_GET, new Map([
+        const response = await this.getTransport().send(METHOD_GET_INDEX, constants.HTTP_METHOD_GET, new Map([
             ['courseId', courseId]
         ]));
 
-        return this.createIndex(data);
+        return this.createIndex(response.data);
     }
 
     private createIndex(data: Array<Map<any, object>>): IIndexModel {

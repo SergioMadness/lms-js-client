@@ -19,7 +19,7 @@ export const METHOD_LOGIN = '/oauth/token';
 export class Users extends WebService implements IUserService {
     async register(user: IUserModel): Promise<IUserModel> {
         const response = await this.getTransport().send(METHOD_REGISTRATION, constants.HTTP_METHOD_POST, user.toArray());
-        return this.create(response.shift());
+        return this.create(response.data);
     }
 
     async login(login: string, password: string, clientId: string, clientSecret: string): Promise<IAuthCredentials> {
@@ -32,7 +32,7 @@ export class Users extends WebService implements IUserService {
             ['scope', '*']
         ]));
 
-        const credentials = response.shift();
+        const credentials = response.data;
 
         let result = new AuthCredentials();
         result.setAccessToken(credentials.get('access_token'));

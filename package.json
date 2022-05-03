@@ -5,7 +5,9 @@
   "dependencies": {
     "axios": "^0.18.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "typescript": "^4.6.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SergioMadness/lms-js-client.git"
