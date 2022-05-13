@@ -15,6 +15,8 @@ import { AuthCredentials } from './interfaces/models/Users/AuthCredentials';
 import { Profile } from './interfaces/services/Profile';
 import { Profile as ProfileService } from './services/Profile';
 import { Programs } from './services/Programs/Programs';
+import { Attempts } from './services/Courses/Attempts';
+import { Attempts as IAttempts } from './interfaces/services/Attempts/Attempts';
 
 export class LMS {
     private static transport: ITransport;
@@ -80,6 +82,12 @@ export class LMS {
 
     tasks(): ITasks {
         const result = new Tasks();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    attempts(): IAttempts {
+        const result = new Attempts();
         result.setTransport(LMS.getTransport());
         return result;
     }

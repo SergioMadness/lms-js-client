@@ -10,6 +10,8 @@ export class Task extends Model implements TaskModel {
     public note: string;
     public description: string;
     public settings: any;
+    public nextTask: Map<string, string>;
+    public prevTask: Map<string, string>;
 
     constructor(attributes: Map<string, any>) {
         super();
@@ -25,6 +27,8 @@ export class Task extends Model implements TaskModel {
         this.id = attributes.get('id');
         this.parentId = attributes.get('parent_id');
         this.settings = attributes.get('settings');
+        this.nextTask = attributes.get('nextTask');
+        this.prevTask = attributes.get('prevTask');
 
         return this;
     }

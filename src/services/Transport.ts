@@ -75,7 +75,7 @@ export class Transport implements ITransport {
 
         return new Response(Array.isArray(response.data.data) ? response.data.data.map(function (value: any) {
             return objectToMap(value);
-        }) : objectToMap(response.data.data), objectToMap(response.data.metadata));
+        }) : objectToMap(response.data.data ?? response.data), objectToMap(response.data.metadata ?? {}));
     }
 
     /**
@@ -98,7 +98,9 @@ export class Transport implements ITransport {
      * @param data 
      */
     prepareData(data: Map<string, any>): any {
-        data.set('client_id', this.getClientId());
+        if (!data.has('client_id')) {
+            data.set('client_id', this.getClientId());
+        }
 
         return Object.fromEntries(data);
     }

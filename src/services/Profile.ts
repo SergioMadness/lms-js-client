@@ -8,6 +8,11 @@ import { UserProcesses as IUserProcesses } from '../interfaces/services/Courses/
 
 const METHOD_GET_PROFILE = '/api/v2/profile';
 
+const METHOD_UPDATE_PROFILE = '/api/v2/profile';
+
+/**
+ * Service to work with current user profile
+ */
 export class Profile extends WebService implements IProfile {
     async get(): Promise<User> {
         const response = await this.getTransport().send(METHOD_GET_PROFILE, constants.HTTP_METHOD_GET, new Map());
@@ -20,5 +25,16 @@ export class Profile extends WebService implements IProfile {
         result.setTransport(this.getTransport());
 
         return result;
+    }
+
+    /**
+     * Update user
+     * 
+     * @param user 
+     */
+    async update(user: User): Promise<User> {
+        const response = await this.getTransport().send(METHOD_UPDATE_PROFILE, constants.HTTP_METHOD_POST, user.toArray());
+
+        return new UserModel(response.data);
     }
 }
