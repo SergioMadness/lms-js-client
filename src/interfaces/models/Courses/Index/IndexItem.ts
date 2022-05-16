@@ -8,6 +8,9 @@ export interface IndexItem {
     /** Get lable */
     getLabel(): string;
 
+    /** Get task type */
+    getType(): string;
+
     /** Check item is available */
     isAvailable(): boolean;
 

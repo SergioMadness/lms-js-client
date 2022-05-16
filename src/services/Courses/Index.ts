@@ -31,7 +31,7 @@ export class Index extends WebService implements IIndex {
 
     private createIndexItem(data: Map<string, any>): IIndexItem {
         let result = new IndexItem();
-        if(!(data instanceof Map)) {
+        if (!(data instanceof Map)) {
             data = new Map(Object.entries(data));
         }
         result.setId(data.get('id'));
@@ -40,6 +40,7 @@ export class Index extends WebService implements IIndex {
         result.setIsFailed(data.get('isFailed'));
         result.setIsPassed(data.get('isPassed'));
         result.setIsSuccessful(data.get('isSuccessful'));
+        result.setType(data.get('type'));
 
         const children = data.get('children') ?? [];
         children.forEach((item: any) => {

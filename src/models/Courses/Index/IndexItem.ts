@@ -7,6 +7,8 @@ export class IndexItem implements IIndexItem {
 
     private alias: string;
 
+    private type: string;
+
     private available: boolean;
 
     private passed: boolean;
@@ -91,5 +93,16 @@ export class IndexItem implements IIndexItem {
 
     children(): Array<IIndexItem> {
         return this.items;
+    }
+
+    /** Get task type */
+    getType(): string {
+        return this.type;
+    }
+
+    setType(type: string): IndexItem {
+        this.type = type;
+
+        return this;
     }
 }
