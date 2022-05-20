@@ -1,3 +1,13 @@
 export abstract class Model {
-    id: string;
+    public id: string;
+
+    setId(id: any): Model {
+        this.id = id;
+
+        return this;
+    }
+
+    getId(): any {
+        return this.id;
+    }
 }

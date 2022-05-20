@@ -43,6 +43,9 @@ export class Transport implements ITransport {
         let headers = this.authCredentials && this.authCredentials.isAuthorized() ? {
             'Authorization': this.authCredentials.getTokenType() + ' ' + this.authCredentials.getAccessToken()
         } : {};
+        console.log('preparedUrl', preparedUrl);
+        console.log('preparedData', preparedData);
+        console.log('headers', headers);
         switch (httpMethod) {
             case constants.HTTP_METHOD_GET:
                 response = await axios.get(preparedUrl, {
@@ -72,6 +75,7 @@ export class Transport implements ITransport {
                 });
                 break;
         }
+        console.log('response', response);
 
         return new Response(Array.isArray(response.data.data) ? response.data.data.map(function (value: any) {
             return objectToMap(value);

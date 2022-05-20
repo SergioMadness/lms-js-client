@@ -24,7 +24,7 @@ export class Attempts extends WebService implements IAttempts {
             ['taskId', taskId]
         ]));
 
-        return new Attempt();
+        return new Attempt(response.data);
     }
 
     /**
@@ -43,6 +43,6 @@ export class Attempts extends WebService implements IAttempts {
             ]
         ));
 
-        return new Attempt();
+        return new Attempt(response.data);
     }
 }

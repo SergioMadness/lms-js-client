@@ -1,4 +1,5 @@
 import { Model } from "../Model";
+import { Attempt } from "./Attempt";
 
 /**
  * Interface for course model
@@ -16,4 +17,6 @@ export interface Task extends Model<Task> {
 
     /** Description */
     readonly description: string;
+
+    getAttempt(): Attempt;
 }

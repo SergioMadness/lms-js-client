@@ -1,5 +1,6 @@
 import { Model } from "../Model"
 import { Task as TaskModel } from "../../interfaces/models/Courses/Task"
+import { Attempt } from "../../interfaces/models/Courses/Attempt";
 
 export class Task extends Model implements TaskModel {
     public id: string;
@@ -12,10 +13,21 @@ export class Task extends Model implements TaskModel {
     public settings: any;
     public nextTask: Map<string, string>;
     public prevTask: Map<string, string>;
+    private attempt: Attempt;
 
     constructor(attributes: Map<string, any>) {
         super();
         this.fill(attributes);
+    }
+
+    setAttempt(attempt: Attempt): Task {
+        this.attempt = attempt;
+
+        return this;
+    }
+
+    getAttempt(): Attempt {
+        return this.attempt;
     }
 
     fill(attributes: Map<string, any>): TaskModel {
@@ -29,6 +41,9 @@ export class Task extends Model implements TaskModel {
         this.settings = attributes.get('settings');
         this.nextTask = attributes.get('nextTask');
         this.prevTask = attributes.get('prevTask');
+        if (attributes.has('attempt')) {
+            this.setAttempt(attributes.get('attempt'));
+        }
 
         return this;
     }
