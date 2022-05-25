@@ -16,14 +16,14 @@ export class UserProcesses extends ListWebService<IUserProcesses> implements IUs
     /**
      * Get list of user's processes
      */
-    async get(): Promise<IPaginator<UserHasProcess>> {
+    async get(): Promise<Array<UserHasProcess>> {
         let result = new Array<UserHasProcess>();
         const response = await this.getTransport().send(METHOD_GET_USER_PROSESSES, constants.HTTP_METHOD_GET, this.prepareParams());
         response.data.forEach((element: any) => {
             result.push(this.create(element));
         });
 
-        return new Paginator<UserHasProcess>(result, response.meta.get('total'), response.meta.get('pageQty'), response.meta.get('ipp'));
+        return result;
     }
 
     /**
