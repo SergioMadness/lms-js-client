@@ -8,9 +8,22 @@ export interface Users {
     /**
      * Register user
      * 
-     * @param user 
+     * @param email 
+     * @param password 
+     * @param firstName 
+     * @param lastName 
+     * @param dateOfBirth 
+     * @param middleName 
+     * @param phone 
      */
-    register(user: UserModel): Promise<UserModel>;
+    register(email: string,
+        password: string,
+        firstName: string,
+        lastName: string,
+        dateOfBirth: string,
+        middleName: string,
+        phone: string,
+    ): Promise<UserModel>;
 
     /**
      * Log in user by login and password
@@ -19,6 +32,15 @@ export interface Users {
      * @param password 
      */
     login(login: string, password: string, clientId: string, clientSecret: string): Promise<AuthCredentials>;
+
+    /**
+     * Refresh access token
+     * 
+     * @param refreshToken 
+     * @param clientId 
+     * @param clientSecret 
+     */
+    refresh(refreshToken: string, clientId: string, clientSecret: string): Promise<AuthCredentials>;
 
     /**
      * Get user by id

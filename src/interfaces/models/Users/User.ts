@@ -39,4 +39,8 @@ export interface User extends Model<User>, Arrayable {
      * OAuth token
      */
     readonly token: string;
+
+    dateOfBirth: Date;
+
+    password: string;
 }

@@ -63,7 +63,7 @@ export class LMS {
     }
 
     users(): Users {
-        const result = new Users();
+        const result = new Users(LMS.getCredentials());
         result.setTransport(LMS.getTransport());
         return result;
     }

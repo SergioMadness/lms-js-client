@@ -12,6 +12,7 @@ export class User extends Model implements UserModel {
             ['last_name', this.lastName],
             ['email', this.email],
             ['phone', this.phone],
+            ['password', this.password],
             ['date_of_birth', this.dateOfBirth ? (this.dateOfBirth.toString()) : null],
         ]);
     }
@@ -32,37 +33,40 @@ export class User extends Model implements UserModel {
         this.phone = attributes.get('phone');
         this.avatar = attributes.get('avatar');
         this.dateOfBirth = attributes.get('date_of_birth');
+        this.token = attributes.get('token');
 
         return this;
     }
     /**
      * First name
      */
-    firstName: string;
+    public firstName: string;
     /**
      * Middle name
      */
-    middleName: string;
+    public middleName: string;
     /**
      * Laset name
      */
-    lastName: string;
+    public lastName: string;
     /**
      * Avatart
      */
-    avatar: string;
+    public avatar: string;
     /**
      * E-mail
      */
-    email: string;
+    public email: string;
     /**
      * Phone
      */
-    phone: string;
+    public phone: string;
     /**
      * Auth token
      */
-    readonly token: string;
+    public token: string;
 
     public dateOfBirth: Date;
+
+    public password: string;
 }

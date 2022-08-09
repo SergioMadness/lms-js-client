@@ -17,8 +17,35 @@ export const METHOD_LOGIN = '/oauth/token';
  * Class to work with user services
  */
 export class Users extends WebService implements IUserService {
-    async register(user: IUserModel): Promise<IUserModel> {
-        const response = await this.getTransport().send(METHOD_REGISTRATION, constants.HTTP_METHOD_POST, user.toArray());
+
+    private credentials: IAuthCredentials;
+
+    constructor(credentials: IAuthCredentials) {
+        super();
+
+        this.setCredentials(credentials);
+    }
+
+    async register(
+        email: string,
+        password: string,
+        firstName: string,
+        lastName: string,
+        dateOfBirth = '',
+        middleName: string = '',
+        phone: string = '',
+    ): Promise<IUserModel> {
+        const response = await this.getTransport().send(METHOD_REGISTRATION, constants.HTTP_METHOD_POST, new Map<string, any>([
+            ['first_name', firstName],
+            ['middle_name', middleName],
+            ['last_name', lastName],
+            ['email', email],
+            ['phone', phone],
+            ['password', password],
+            ['politics', true],
+            ['date_of_birth', dateOfBirth],
+        ]));
+
         return this.create(response.data);
     }
 
@@ -45,11 +72,55 @@ export class Users extends WebService implements IUserService {
         return result;
     }
 
+    /**
+     * Refresh access token
+     * 
+     * @param clientId 
+     * @param clientSecret 
+     */
+    async refresh(clientId: string, clientSecret: string): Promise<AuthCredentials> {
+        const currentCredentials = this.getCredentials();
+        const refreshToken = currentCredentials.getRefreshToken();
+        if (!refreshToken) {
+            throw new Error('Need refresh token');
+        }
+
+        const response = await this.getTransport().send(METHOD_LOGIN, constants.HTTP_METHOD_POST, new Map<string, string>([
+            ['grant_type', 'refresh_token'],
+            ['client_id', clientId],
+            ['client_secret', clientSecret],
+            ['refresh_token', refreshToken],
+            ['scope', '']
+        ]));
+
+        const credentials = response.data;
+
+        let result = new AuthCredentials();
+        result.setAccessToken(credentials.get('access_token'));
+        result.setRefreshToken(credentials.get('refresh_token'));
+        result.setTokenType(credentials.get('token_type'));
+        let expiresDate = new Date();
+        expiresDate.setSeconds(expiresDate.getSeconds() + credentials.get('expires_in'));
+        result.setExpiresDate(expiresDate);
+
+        return result;
+    }
+
     get(id: number): Promise<IUserModel> {
         throw new Error("Method not implemented.");
     }
 
     create(attributes?: Map<string, any>): IUserModel {
         return new User(attributes);
+    }
+
+    setCredentials(credentials: IAuthCredentials): Users {
+        this.credentials = credentials;
+
+        return this;
+    }
+
+    getCredentials(): IAuthCredentials {
+        return this.credentials;
     }
 }

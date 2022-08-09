@@ -16,6 +16,7 @@ const METHOD_UPDATE_PROFILE = '/api/v2/profile';
 export class Profile extends WebService implements IProfile {
     async get(): Promise<User> {
         const response = await this.getTransport().send(METHOD_GET_PROFILE, constants.HTTP_METHOD_GET, new Map());
+        
         return new UserModel(response.data);
     }
 
