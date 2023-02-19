@@ -40,9 +40,15 @@ export class Transport implements ITransport {
         const preparedData = this.prepareData(data);
         const preparedUrl = this.prepareUrl(apiMethod, data);
 
-        let headers = this.authCredentials && this.authCredentials.isAuthorized() ? {
-            'Authorization': this.authCredentials.getTokenType() + ' ' + this.authCredentials.getAccessToken()
-        } : {};
+        let headers = {
+            'X-Client-ID': this.getClientId(),
+            'Authorization': ''
+        };
+
+        if (this.authCredentials && this.authCredentials.isAuthorized()) {
+            headers.Authorization = this.authCredentials.getTokenType() + ' ' + this.authCredentials.getAccessToken();
+        };
+
         console.log('preparedUrl', preparedUrl);
         console.log('preparedData', preparedData);
         console.log('headers', headers);

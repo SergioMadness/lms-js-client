@@ -17,7 +17,6 @@ export class Courses extends ListWebService<Course> implements ICourses {
     async get(): Promise<IPaginator<Course>> {
         let result = new Array<Course>();
         const response = await this.getTransport().send(METHOD_GET_COURSES, constants.HTTP_METHOD_GET, this.prepareParams());
-        console.log(response);
         response.data.forEach((element: any) => {
             result.push(this.create(element));
         });

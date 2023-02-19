@@ -17,6 +17,7 @@ import { Profile as ProfileService } from './services/Profile';
 import { Programs } from './services/Programs/Programs';
 import { Attempts } from './services/Courses/Attempts';
 import { Attempts as IAttempts } from './interfaces/services/Attempts/Attempts';
+import { Certificates } from './services/Courses/Certificates';
 
 export class LMS {
     private static transport: ITransport;
@@ -100,6 +101,12 @@ export class LMS {
 
     profile(): Profile {
         const result = new ProfileService();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    certificates(): Certificates {
+        const result = new Certificates();
         result.setTransport(LMS.getTransport());
         return result;
     }
