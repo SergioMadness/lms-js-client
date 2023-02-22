@@ -28,6 +28,16 @@ export class Transport implements ITransport {
         return this.authCredentials;
     }
 
+    _mapToFormData(data: Map<string, any>): FormData {
+        const result = new FormData();
+
+        data.forEach(function (value, key) {
+            result.append(key, value);
+        });
+
+        return result;
+    }
+
     /**
      * Send request, get response
      * 
@@ -35,57 +45,84 @@ export class Transport implements ITransport {
      * @param httpMethod 
      * @param data 
      */
-    async send(apiMethod: string, httpMethod: string, data: Map<string, any>): Promise<IResponse> {
+    async send(apiMethod: string, httpMethod: string, data: Map<string, any>, headers: Map<string, string> = null): Promise<IResponse> {
         let response = null;
         const preparedData = this.prepareData(data);
         const preparedUrl = this.prepareUrl(apiMethod, data);
 
-        let headers = {
-            'X-Client-ID': this.getClientId(),
-            'Authorization': ''
-        };
+        headers = headers || new Map<string, string>();
+        headers.set('X-Client-ID', this.getClientId());
 
         if (this.authCredentials && this.authCredentials.isAuthorized()) {
-            headers.Authorization = this.authCredentials.getTokenType() + ' ' + this.authCredentials.getAccessToken();
+            headers.set('Authorization', this.authCredentials.getTokenType() + ' ' + this.authCredentials.getAccessToken());
         };
+
+        const headersO = Object.fromEntries(headers);
 
         console.log('preparedUrl', preparedUrl);
         console.log('preparedData', preparedData);
-        console.log('headers', headers);
+        console.log('headers', headersO);
+
+        const needFormData = headers.has('Content-Type') && headers.get('Content-Type') === 'multipart/form-data';
+
         switch (httpMethod) {
             case constants.HTTP_METHOD_GET:
                 response = await axios.get(preparedUrl, {
-                    params: preparedData,
-                    headers: headers
+                    params: Object.fromEntries(preparedData),
+                    headers: headersO
                 });
                 break;
             case constants.HTTP_METHOD_POST:
-                response = await axios.post(preparedUrl, preparedData, {
-                    headers: headers
+                response = await axios.post(preparedUrl, needFormData ? this._mapToFormData(preparedData) : Object.fromEntries(preparedData), {
+                    headers: headersO
                 });
                 break;
             case constants.HTTP_METHOD_PATCH:
-                response = await axios.patch(preparedUrl, preparedData, {
-                    headers: headers
+                response = await axios.patch(preparedUrl, preparedData.has('raw-content') ? preparedData.get('raw-content') : this._mapToFormData(preparedData), {
+                    headers: headersO
                 });
                 break;
             case constants.HTTP_METHOD_PUT:
-                response = await axios.put(preparedUrl, preparedData, {
-                    headers: headers
+                response = await axios.put(preparedUrl, preparedData.has('raw-content') ? preparedData.get('raw-content') : this._mapToFormData(preparedData), {
+                    headers: headersO
                 });
                 break;
             case constants.HTTP_METHOD_DELETE:
+                if (!headers.has('Content-Type')) {
+                    headers.set('Content-Type', 'application/json');
+                }
                 response = await axios.delete(preparedUrl, {
-                    params: preparedData,
-                    headers: headers
+                    data: JSON.stringify(preparedData.has('raw-content') ? preparedData.get('raw-content') : Object.fromEntries(preparedData)),
+                    headers: headersO
                 });
                 break;
         }
         console.log('response', response);
 
-        return new Response(Array.isArray(response.data.data) ? response.data.data.map(function (value: any) {
-            return objectToMap(value);
-        }) : objectToMap(response.data.data ?? response.data), objectToMap(response.data.metadata ?? {}));
+        const responseData = response.data.data ?? response.data;
+        const metaData = objectToMap(response.data.metadata ?? {});
+        if (Array.isArray(responseData)) {
+            return new Response(responseData.map(function (value: any) {
+                return objectToMap(value);
+            }), metaData);
+        }
+        if (typeof responseData === 'string') {
+            return new Response(responseData, metaData);
+        }
+
+        return new Response(objectToMap(responseData), metaData);
+    }
+
+    /**
+     * Send data to api method with multipart type
+     * 
+     * @param apiMethod 
+     * @param data 
+     */
+    sendMultipart(apiMethod: string, data: Map<string, any>): Promise<IResponse> {
+        return this.send(apiMethod, constants.HTTP_METHOD_POST, data, new Map<string, string>([
+            ['Content-Type', 'multipart/form-data']
+        ]));
     }
 
     /**
@@ -107,12 +144,12 @@ export class Transport implements ITransport {
      * 
      * @param data 
      */
-    prepareData(data: Map<string, any>): any {
+    prepareData(data: Map<string, any>): Map<string, any> {
         if (!data.has('client_id')) {
             data.set('client_id', this.getClientId());
         }
 
-        return Object.fromEntries(data);
+        return data;
     }
 
     /**

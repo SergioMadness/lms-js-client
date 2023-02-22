@@ -15,6 +15,14 @@ export interface Transport {
     send(apiMethod: string, httpMethod: string, data: Map<string, any>): Promise<Response>;
 
     /**
+     * Send data to api method with multipart type
+     * 
+     * @param apiMethod 
+     * @param data 
+     */
+    sendMultipart(apiMethod: string, data: Map<string, any>): Promise<Response>;
+
+    /**
      * Set authorization data
      * 
      * @param credentials 

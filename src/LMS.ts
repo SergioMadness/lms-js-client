@@ -18,6 +18,7 @@ import { Programs } from './services/Programs/Programs';
 import { Attempts } from './services/Courses/Attempts';
 import { Attempts as IAttempts } from './interfaces/services/Attempts/Attempts';
 import { Certificates } from './services/Courses/Certificates';
+import { Storage } from './services/Storage';
 
 export class LMS {
     private static transport: ITransport;
@@ -107,6 +108,12 @@ export class LMS {
 
     certificates(): Certificates {
         const result = new Certificates();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    storage(): Storage {
+        const result = new Storage();
         result.setTransport(LMS.getTransport());
         return result;
     }
