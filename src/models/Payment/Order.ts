@@ -1,6 +1,6 @@
 import { Model } from "../Model";
 import { Order as IOrder } from '../../interfaces/models/Payment/Order';
-import { Payment } from "src/interfaces/models/Payment/Payment";
+import { Payment } from "../../interfaces/models/Payment/Payment";
 
 export class Order extends Model implements IOrder {
     private amount: number;

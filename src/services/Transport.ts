@@ -57,13 +57,21 @@ export class Transport implements ITransport {
             headers.set('Authorization', this.authCredentials.getTokenType() + ' ' + this.authCredentials.getAccessToken());
         };
 
+        if (!headers.has('Content-Type') && preparedData.has('raw-content')) {
+            if (typeof preparedData.get('raw-content') === 'string') {
+                headers.set('Content-Type', 'text/html');
+            } else {
+                headers.set('Content-Type', 'application/json');
+            }
+        }
+
+        const needFormData = headers.has('Content-Type') && headers.get('Content-Type') === 'multipart/form-data';
+
         const headersO = Object.fromEntries(headers);
 
         console.log('preparedUrl', preparedUrl);
         console.log('preparedData', preparedData);
         console.log('headers', headersO);
-
-        const needFormData = headers.has('Content-Type') && headers.get('Content-Type') === 'multipart/form-data';
 
         switch (httpMethod) {
             case constants.HTTP_METHOD_GET:
@@ -88,11 +96,8 @@ export class Transport implements ITransport {
                 });
                 break;
             case constants.HTTP_METHOD_DELETE:
-                if (!headers.has('Content-Type')) {
-                    headers.set('Content-Type', 'application/json');
-                }
                 response = await axios.delete(preparedUrl, {
-                    data: JSON.stringify(preparedData.has('raw-content') ? preparedData.get('raw-content') : Object.fromEntries(preparedData)),
+                    data: preparedData.has('raw-content') ? preparedData.get('raw-content') : JSON.stringify(Object.fromEntries(preparedData)),
                     headers: headersO
                 });
                 break;
