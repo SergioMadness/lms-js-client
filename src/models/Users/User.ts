@@ -33,7 +33,10 @@ export class User extends Model implements UserModel {
         this.phone = attributes.get('phone');
         this.avatar = attributes.get('avatar');
         this.dateOfBirth = attributes.get('date_of_birth');
-        this.token = attributes.get('token');
+        this.token = attributes.get('access_token');
+        this.refreshToken = attributes.get('refresh_token');
+        this.expiresIn = attributes.get('expires_in');
+        this.tokenType = attributes.get('token_type');
 
         return this;
     }
@@ -65,6 +68,12 @@ export class User extends Model implements UserModel {
      * Auth token
      */
     public token: string;
+
+    public refreshToken: string;
+
+    public expiresIn: number;
+
+    public tokenType: string;
 
     public dateOfBirth: Date;
 

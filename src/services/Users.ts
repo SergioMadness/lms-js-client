@@ -13,6 +13,8 @@ export const METHOD_GET_USER = '/api/v2/users/{id}';
 
 export const METHOD_LOGIN = '/oauth/token';
 
+export const METHOD_REFRESH_TOKEN = '/oauth/token/refresh';
+
 /**
  * Class to work with user services
  */
@@ -85,7 +87,7 @@ export class Users extends WebService implements IUserService {
             throw new Error('Need refresh token');
         }
 
-        const response = await this.getTransport().send(METHOD_LOGIN, constants.HTTP_METHOD_POST, new Map<string, string>([
+        const response = await this.getTransport().send(METHOD_REFRESH_TOKEN, constants.HTTP_METHOD_POST, new Map<string, string>([
             ['grant_type', 'refresh_token'],
             ['client_id', clientId],
             ['client_secret', clientSecret],
