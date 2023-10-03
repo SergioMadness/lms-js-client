@@ -15,6 +15,8 @@ export const METHOD_LOGIN = '/oauth/token';
 
 export const METHOD_REFRESH_TOKEN = '/oauth/token/refresh';
 
+export const METHOD_SOCIAL_TOKEN = '/api/v2/oauth/social';
+
 /**
  * Class to work with user services
  */
@@ -93,6 +95,33 @@ export class Users extends WebService implements IUserService {
             ['client_secret', clientSecret],
             ['refresh_token', refreshToken],
             ['scope', '']
+        ]));
+
+        const credentials = response.data;
+
+        let result = new AuthCredentials();
+        result.setAccessToken(credentials.get('access_token'));
+        result.setRefreshToken(credentials.get('refresh_token'));
+        result.setTokenType(credentials.get('token_type'));
+        let expiresDate = new Date();
+        expiresDate.setSeconds(expiresDate.getSeconds() + credentials.get('expires_in'));
+        result.setExpiresDate(expiresDate);
+
+        return result;
+    }
+
+    /**
+     * Auth by social token
+     * 
+     * @param driver
+     * @param token 
+     * @param email 
+     */
+    async loginBySocialToken(driver: string, token: string, email: string): Promise<AuthCredentials> {
+        const response = await this.getTransport().send(METHOD_SOCIAL_TOKEN, constants.HTTP_METHOD_POST, new Map<string, string>([
+            ['token', token],
+            ['email', email],
+            ['driver', driver]
         ]));
 
         const credentials = response.data;

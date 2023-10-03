@@ -48,4 +48,13 @@ export interface Users {
      * @param id 
      */
     get(id: number): Promise<UserModel>;
+
+    /**
+     * Auth by social token
+     * 
+     * @param driver
+     * @param token 
+     * @param email 
+     */
+    loginBySocialToken(driver: string, token: string, email: string): Promise<AuthCredentials>;
 }
