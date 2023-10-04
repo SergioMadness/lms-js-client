@@ -57,4 +57,12 @@ export interface Users {
      * @param email 
      */
     loginBySocialToken(driver: string, token: string, email: string): Promise<AuthCredentials>;
+
+    /**
+     * Auth by signed data
+     * 
+     * @param driver 
+     * @param data 
+     */
+    loginBySignedData(driver: string, data: Array<object>): Promise<AuthCredentials>;
 }

@@ -17,6 +17,8 @@ export const METHOD_REFRESH_TOKEN = '/oauth/token/refresh';
 
 export const METHOD_SOCIAL_TOKEN = '/api/v2/oauth/social';
 
+export const METHOD_SOCIAL_BY_SIGNED_DATA = '/api/v2/social/by-signed-data';
+
 /**
  * Class to work with user services
  */
@@ -121,6 +123,32 @@ export class Users extends WebService implements IUserService {
         const response = await this.getTransport().send(METHOD_SOCIAL_TOKEN, constants.HTTP_METHOD_POST, new Map<string, string>([
             ['token', token],
             ['email', email],
+            ['driver', driver]
+        ]));
+
+        const credentials = response.data;
+
+        let result = new AuthCredentials();
+        result.setAccessToken(credentials.get('access_token'));
+        result.setRefreshToken(credentials.get('refresh_token'));
+        result.setTokenType(credentials.get('token_type'));
+        let expiresDate = new Date();
+        expiresDate.setSeconds(expiresDate.getSeconds() + credentials.get('expires_in'));
+        result.setExpiresDate(expiresDate);
+
+        return result;
+    }
+
+
+    /**
+     * Auth by signed data
+     * 
+     * @param driver 
+     * @param data 
+     */
+    async loginBySignedData(driver: string, data: Array<object>): Promise<AuthCredentials> {
+        const response = await this.getTransport().send(METHOD_SOCIAL_BY_SIGNED_DATA, constants.HTTP_METHOD_POST, new Map<string, any>([
+            ['data', data],
             ['driver', driver]
         ]));
 
