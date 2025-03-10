@@ -1,9 +1,12 @@
 {
   "name": "lms-api",
-  "main": "LMS.js",
+  "main": "./src/LMS.ts",
   "version": "1.0.0",
+  "exports": {
+    "./*": "./src/**/*.ts"
+  },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^1.8.2"
   },
   "devDependencies": {
     "typescript": "^4.6.2"
