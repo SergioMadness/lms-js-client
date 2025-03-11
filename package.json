@@ -1,10 +1,10 @@
 {
   "name": "lms-api",
-  "main": "./src/LMS.ts",
+  "main": "./src/index.ts",
   "version": "1.0.0",
-  "exports": {
-    "./*": "./src/**/*.ts"
-  },
+  "files": [
+    "src"
+  ],
   "dependencies": {
     "axios": "^1.8.2"
   },
