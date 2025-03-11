@@ -1,1 +1,1 @@
-export * from "./News";
+export {News as NewsModel} from "./News";
