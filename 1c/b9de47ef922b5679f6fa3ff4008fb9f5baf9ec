@@ -1,0 +1,213 @@
+src/interfaces/services/Gamification.ts
+  s_f03d2654d0cd6d::t_2464ec8c3726d1 1-19
+src/services/Courses/WebinarChat.ts
+  s_8334f0bacdf9b4::t_3fddea8ce6c3f3 1-70
+src/interfaces/models/Courses/ProctoringEvent.ts
+  s_a05323673dd0b4::t_77d7298f4f187c 1-19
+src/interfaces/models/Courses/Task.ts
+  s_fc5374bed026a9::t_2b6cceed6633d3 60-61
+  s_8334f0bacdf9b4::t_53c77c0d19b13a 30-58
+  s_fc5374bed026a9::t_6c3f6fc6559c48 5
+  s_8334f0bacdf9b4::t_a8bb396a31754f 3-4
+src/interfaces/services/Courses/Proctoring.ts
+  s_a05323673dd0b4::t_ffe9677fe7e885 1-18
+src/services/Courses/Proctoring.ts
+  s_a05323673dd0b4::t_802489099cf202 1-38
+src/interfaces/services/Courses/Tutor.ts
+  s_fc5374bed026a9::t_3597dc5155b31c 1-13
+src/services/Courses/Tutor.ts
+  s_fc5374bed026a9::t_ef67198b4ac256 1-73
+src/services/Courses/Offline.ts
+  s_aa999037c29bb6::t_5993adfab4d313 1-41
+src/interfaces/models/Comment.ts
+  s_f03d2654d0cd6d::t_80b53a513c7571 1-35
+src/interfaces/models/Gamification.ts
+  s_f03d2654d0cd6d::t_2cea917e988c84 1-53
+src/interfaces/services/Comments.ts
+  s_f03d2654d0cd6d::t_73dbc96fd1ffe4 1-20
+src/interfaces/models/Courses/TaskDeadline.ts
+  s_a05323673dd0b4::t_377c3ffe6d1bc1 1-15
+src/interfaces/services/Courses/Webinars.ts
+  s_8334f0bacdf9b4::t_a883261bdb213b 1-13
+src/interfaces/services/Courses/Offline.ts
+  s_aa999037c29bb6::t_f87351acb22a78 1-17
+src/services/Courses/Webinars.ts
+  s_8334f0bacdf9b4::t_08634a4f94391f 1-76
+src/interfaces/models/Courses/Tutor.ts
+  s_fc5374bed026a9::t_a6a12eb39a4374 1-52
+src/services/Gamification.ts
+  s_f03d2654d0cd6d::t_73ee7dba003f79 1-102
+src/services/Orders.ts
+  s_f03d2654d0cd6d::t_8a06d37612b935 1-56
+src/interfaces/services/Orders.ts
+  s_f03d2654d0cd6d::t_26775d8f81a1b3 1-24
+src/interfaces/models/Courses/OfflinePackage.ts
+  s_aa999037c29bb6::t_f578d7fa611cd4 1-35
+src/services/Courses/CameraProctoring.ts
+  s_8334f0bacdf9b4::t_3a5f650664b520 1-77
+src/services/Comments.ts
+  s_f03d2654d0cd6d::t_b785ffc02343df 1-77
+src/services/Storage.ts
+  s_f03d2654d0cd6d::t_44eb3125410e9d 28
+src/interfaces/services/Courses/CameraProctoring.ts
+  s_8334f0bacdf9b4::t_7cabc35d0d2800 1-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "0.0.63",
+  "base_commit_sha": "1cb9de47ef922b5679f6fa3ff4008fb9f5baf9ec",
+  "prompts": {},
+  "sessions": {
+    "s_8334f0bacdf9b4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a13c7da-7c2e-413b-9cd2-d104b6de1201",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "SergioMadness <madness.sergio@gmail.com>",
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "input_tokens": 1854,
+          "output_tokens": 369194,
+          "cache_read_tokens": 97583661,
+          "cache_write_5m_tokens": 2184225,
+          "cache_write_1h_tokens": 670686,
+          "assistant_messages": 913,
+          "turns": 27,
+          "ai_wall_ms": 2587183,
+          "first_ts": "2026-09-27T15:54:09.378Z",
+          "last_ts": "2026-09-27T19:36:29.766Z",
+          "session_total_output_tokens": 369194
+        }
+      ],
+      "accepted_lines": 291,
+      "overridden_lines": 0
+    },
+    "s_a05323673dd0b4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3bf7389d-9044-4637-a198-a6bc125feea8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "SergioMadness <madness.sergio@gmail.com>",
+      "accepted_lines": 90,
+      "overridden_lines": 0
+    },
+    "s_aa999037c29bb6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73adb6a9-f599-4f0d-81ec-69602a579773",
+        "model": "claude-opus-5"
+      },
+      "human_author": "SergioMadness <madness.sergio@gmail.com>",
+      "accepted_lines": 93,
+      "overridden_lines": 0
+    },
+    "s_f03d2654d0cd6d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ea559b9b-f674-418b-904c-606a4782f296",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "SergioMadness <madness.sergio@gmail.com>",
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "input_tokens": 956,
+          "output_tokens": 176565,
+          "cache_read_tokens": 52833936,
+          "cache_write_5m_tokens": 837304,
+          "cache_write_1h_tokens": 377349,
+          "assistant_messages": 471,
+          "turns": 12,
+          "ai_wall_ms": 1048994,
+          "first_ts": "2026-10-19T14:15:23.727Z",
+          "last_ts": "2026-10-19T14:27:38.294Z",
+          "session_total_output_tokens": 176565
+        }
+      ],
+      "tools": [
+        {
+          "tool": "Agent",
+          "model": "claude-opus-5-5",
+          "calls": 3,
+          "result_chars": 3216,
+          "result_input_tokens": 6,
+          "result_cache_write_5m_tokens": 0,
+          "result_cache_write_1h_tokens": 11040,
+          "call_output_tokens": 7950
+        },
+        {
+          "tool": "Bash",
+          "model": "claude-opus-5-5",
+          "calls": 262,
+          "result_chars": 1030450,
+          "result_input_tokens": 523,
+          "result_cache_write_5m_tokens": 404034,
+          "result_cache_write_1h_tokens": 120287,
+          "call_output_tokens": 81381
+        },
+        {
+          "tool": "Grep",
+          "model": "claude-opus-5-5",
+          "calls": 7,
+          "result_chars": 19373,
+          "result_input_tokens": 13,
+          "result_cache_write_5m_tokens": 17880,
+          "result_cache_write_1h_tokens": 0,
+          "call_output_tokens": 2513
+        },
+        {
+          "tool": "Read",
+          "model": "claude-opus-5-5",
+          "calls": 4,
+          "result_chars": 44284,
+          "result_input_tokens": 6,
+          "result_cache_write_5m_tokens": 18349,
+          "result_cache_write_1h_tokens": 0,
+          "call_output_tokens": 631
+        },
+        {
+          "tool": "Write",
+          "model": "claude-opus-5-5",
+          "calls": 8,
+          "result_chars": 1234,
+          "result_input_tokens": 16,
+          "result_cache_write_5m_tokens": 0,
+          "result_cache_write_1h_tokens": 14498,
+          "call_output_tokens": 30050
+        }
+      ],
+      "context_at_start_tokens": 62329,
+      "accepted_lines": 385,
+      "overridden_lines": 0
+    },
+    "s_fc5374bed026a9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3ef2fddd-37f6-4eae-9edd-136fe319b608",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "SergioMadness <madness.sergio@gmail.com>",
+      "usage": [
+        {
+          "model": "claude-fable-5-1",
+          "input_tokens": 4882,
+          "output_tokens": 114082,
+          "cache_read_tokens": 25482473,
+          "cache_write_5m_tokens": 0,
+          "cache_write_1h_tokens": 419654,
+          "assistant_messages": 161,
+          "turns": 3,
+          "ai_wall_ms": 718250,
+          "first_ts": "2026-09-29T18:36:55.759Z",
+          "last_ts": "2026-09-29T18:55:55.399Z",
+          "session_total_output_tokens": 114082
+        }
+      ],
+      "accepted_lines": 141,
+      "overridden_lines": 0
+    }
+  }
+}
