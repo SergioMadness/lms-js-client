@@ -1,5 +1,7 @@
 export * from "./Arrayable";
+export * from "./Comment";
 export * from "./Config";
+export * from "./Gamification";
 export * from "./File";
 export * from "./Model";
 export * from "./Paginator";

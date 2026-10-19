@@ -33,15 +33,20 @@ export class Attempts extends WebService implements IAttempts {
      * @param courseId
      * @param taskId 
      * @param data 
+     * @param retake The same flag the task was opened and started with
      */
-    async save(courseId: string, taskId: string, data: any): Promise<IAttempt> {
-        const response = await this.getTransport().send(METHOD_SEND_ATTEMPT, constants.HTTP_METHOD_POST, new Map<string, any>(
+    async save(courseId: string, taskId: string, data: any, retake: boolean = false): Promise<IAttempt> {
+        const params = new Map<string, any>(
             [
                 ['courseId', courseId],
                 ['taskId', taskId],
                 ['answer', data]
             ]
-        ));
+        );
+        if (retake) {
+            params.set('retake', 1);
+        }
+        const response = await this.getTransport().send(METHOD_SEND_ATTEMPT, constants.HTTP_METHOD_POST, params);
 
         return new Attempt(response.data);
     }

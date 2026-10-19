@@ -6,4 +6,6 @@ import { Program } from "../../../interfaces/models/Programs/Program";
  */
 export interface Programs extends ListService<Program> {
 
+    /** Enroll into a free program */
+    enroll(id: string): Promise<Program>;
 }

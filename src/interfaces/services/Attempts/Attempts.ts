@@ -18,6 +18,7 @@ export interface Attempts {
      * @param courseId
      * @param taskId 
      * @param data 
+     * @param retake The same flag the task was opened and started with
      */
-    save(courseId:string, taskId: string, data: any): Promise<Attempt>;
+    save(courseId:string, taskId: string, data: any, retake?: boolean): Promise<Attempt>;
 }

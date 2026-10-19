@@ -17,8 +17,24 @@ import { Profile as ProfileService } from './services/Profile';
 import { Programs } from './services/Programs/Programs';
 import { Attempts } from './services/Courses/Attempts';
 import { Attempts as IAttempts } from './interfaces/services/Attempts/Attempts';
+import { Offline } from './services/Courses/Offline';
+import { Proctoring } from './services/Courses/Proctoring';
+import { Offline as IOffline } from './interfaces/services/Courses/Offline';
+import { Proctoring as IProctoring } from './interfaces/services/Courses/Proctoring';
 import { Certificates } from './services/Courses/Certificates';
 import { Storage } from './services/Storage';
+import { Webinars } from './services/Courses/Webinars';
+import { Webinars as IWebinars } from './interfaces/services/Courses/Webinars';
+import { CameraProctoring } from './services/Courses/CameraProctoring';
+import { CameraProctoring as ICameraProctoring } from './interfaces/services/Courses/CameraProctoring';
+import { Tutor } from './services/Courses/Tutor';
+import { Tutor as ITutor } from './interfaces/services/Courses/Tutor';
+import { Comments } from './services/Comments';
+import { Comments as IComments } from './interfaces/services/Comments';
+import { Gamification } from './services/Gamification';
+import { Gamification as IGamification } from './interfaces/services/Gamification';
+import { Orders } from './services/Orders';
+import { Orders as IOrders } from './interfaces/services/Orders';
 
 export class LMS {
     private static transport: ITransport;
@@ -94,6 +110,36 @@ export class LMS {
         return result;
     }
 
+    proctoring(): IProctoring {
+        const result = new Proctoring();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    cameraProctoring(): ICameraProctoring {
+        const result = new CameraProctoring();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    webinars(): IWebinars {
+        const result = new Webinars();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    tutor(): ITutor {
+        const result = new Tutor();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    offline(): IOffline {
+        const result = new Offline();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
     index(): IIndex {
         const result = new Index();
         result.setTransport(LMS.getTransport());
@@ -108,6 +154,24 @@ export class LMS {
 
     certificates(): Certificates {
         const result = new Certificates();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    comments(): IComments {
+        const result = new Comments();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    gamification(): IGamification {
+        const result = new Gamification();
+        result.setTransport(LMS.getTransport());
+        return result;
+    }
+
+    orders(): IOrders {
+        const result = new Orders();
         result.setTransport(LMS.getTransport());
         return result;
     }

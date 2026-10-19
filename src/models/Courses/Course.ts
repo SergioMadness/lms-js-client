@@ -3,6 +3,7 @@ import { Course as CourseModel } from "../../interfaces/models/Courses/Course"
 import { HasPrices } from "../../interfaces/models/Payment/HasPrices";
 import { Price } from "../../interfaces/models/Payment/Price";
 import { Price as PriceModel } from "../Payment/Price";
+import { objectToMap } from "../../services/Helpers";
 
 export class Course extends Model implements CourseModel, HasPrices {
     public title: string;
@@ -56,8 +57,9 @@ export class Course extends Model implements CourseModel, HasPrices {
         this.noAccessCode = attributes.get('why_not_code');
 
         if (attributes.get('prices')) {
-            this.setPrices(attributes.get('prices').map(function (item: Map<string, any>) {
-                return new PriceModel(item);
+            // nested objects of the answer are plain objects, only the top level is a Map
+            this.setPrices(attributes.get('prices').map(function (item: any) {
+                return new PriceModel(item instanceof Map ? item : objectToMap(item));
             }));
         }
 

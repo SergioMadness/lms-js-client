@@ -12,6 +12,13 @@ export interface Storage {
     uploadTemporary(file: any): Promise<string>;
 
     /**
+     * Upload a file that is kept (the answer of a task)
+     *
+     * @param file
+     */
+    upload(file: any): Promise<File>;
+
+    /**
      * Remove file
      * 
      * @param id 

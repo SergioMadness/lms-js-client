@@ -6,9 +6,9 @@ import { Model } from "../Model";
 export interface UserHasProcess extends Model<UserHasProcess> {
 
     /**
-     * Get date till what process is available
+     * Get date till what process is available, null when the access is unlimited
      */
-    getTill(): Date;
+    getTill(): Date | null;
 
     /**
      * Get progress
@@ -21,7 +21,7 @@ export interface UserHasProcess extends Model<UserHasProcess> {
     isFinished(): boolean;
 
     /**
-     * Get finish date
+     * Get finish date, null while the process is not finished
      */
-    getFinishDate(): Date;
+    getFinishDate(): Date | null;
 }

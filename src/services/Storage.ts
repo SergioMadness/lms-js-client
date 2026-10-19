@@ -8,6 +8,8 @@ export const METHOD_UPLOAD_TEMPORARY = '/api/v2/files/temporary';
 
 export const METHOD_GET_FILE = '/api/v2/files/{fileId}';
 
+export const METHOD_UPLOAD = '/api/v2/files';
+
 export class Storage extends WebService implements IStorage {
 
     /**
@@ -18,6 +20,20 @@ export class Storage extends WebService implements IStorage {
     async get(id: string): Promise<IFile> {
         const response = await this.getTransport().send(METHOD_GET_FILE, constants.HTTP_METHOD_GET, new Map<string, any>([
             ['fileId', id]
+        ]));
+
+        return new File(response.data);
+    }
+
+    /**
+     * Upload a file that is kept: the answer of a task (files-upload,
+     * free-text-input) takes the ids of such files. Multipart field `file`.
+     *
+     * @param file
+     */
+    async upload(file: object): Promise<IFile> {
+        const response = await this.getTransport().sendMultipart(METHOD_UPLOAD, new Map<string, any>([
+            ['file', file]
         ]));
 
         return new File(response.data);

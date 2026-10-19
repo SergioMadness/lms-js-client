@@ -5,10 +5,10 @@ import { Program } from "../../Programs/Program";
 import { objectToMap } from '../../../services/Helpers';
 
 export class UserHasProcess extends Model implements UserHasProcessModel {
-    public till: Date;
+    public till: Date | null;
     public progress: number;
     public processType: string;
-    public finishedAt: Date;
+    public finishedAt: Date | null;
     public process: any;
 
     constructor(attributes: Map<string, any>) {
@@ -16,7 +16,7 @@ export class UserHasProcess extends Model implements UserHasProcessModel {
         this.fill(attributes);
     }
 
-    getTill(): Date {
+    getTill(): Date | null {
         return this.till;
     }
 
@@ -28,7 +28,7 @@ export class UserHasProcess extends Model implements UserHasProcessModel {
         return this.getProgress() === 100;
     }
 
-    getFinishDate(): Date {
+    getFinishDate(): Date | null {
         return this.finishedAt;
     }
 
@@ -36,9 +36,13 @@ export class UserHasProcess extends Model implements UserHasProcessModel {
         this.processType = attributes.get('process_type');
         this.process = this.processType === 'course' ? new Course(objectToMap(attributes.get('process'))) : new Program(objectToMap(attributes.get('process')));
 
-        this.till = new Date(attributes.get('till'));
+        // both dates are nullable: an unlimited access and an unfinished process
+        // carry no date, and new Date(null) would silently become 01.01.1970
+        const till = attributes.get('till');
+        this.till = till ? new Date(till) : null;
         this.progress = attributes.get('progress');
-        this.finishedAt = new Date(attributes.get('finished_at'));
+        const finishDate = attributes.get('finish_date');
+        this.finishedAt = finishDate ? new Date(finishDate) : null;
 
         return this;
     }

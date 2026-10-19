@@ -21,6 +21,15 @@ export class Attempt extends Model implements IAttempt {
 
     private isAttemptPublic: boolean = false;
 
+    /**
+     * What the check said: marks per question for the auto-checked types, the
+     * comment of the teacher or of the AI (a string) for the checked by hand
+     */
+    private auditorData: any = null;
+
+    /** The verdict is the AI's */
+    private aiChecked: boolean = false;
+
     constructor(attributes: Map<string, any> = null) {
         super();
 
@@ -114,6 +123,19 @@ export class Attempt extends Model implements IAttempt {
         return this.isAttemptPublic;
     }
 
+    getAuditorData(): any {
+        return this.auditorData;
+    }
+
+    /** The comment left on an answer checked by a teacher or by the AI, null for the rest */
+    getComment(): string | null {
+        return typeof this.auditorData === 'string' && this.auditorData.trim() !== '' ? this.auditorData : null;
+    }
+
+    isAiChecked(): boolean {
+        return this.aiChecked;
+    }
+
     /** Get attempt data */
     getData(): any {
         return this.data;
@@ -132,7 +154,8 @@ export class Attempt extends Model implements IAttempt {
         this.setIsAudited(attributes.get('audited'));
         this.setIsSuccessful(attributes.get('success'));
         this.setIsWaitAudit(attributes.get('wait_audit'));
-        this.setIsWaitAudit(attributes.get('wait_audit'));
+        this.auditorData = attributes.get('auditor_data') ?? null;
+        this.aiChecked = attributes.get('ai_checked') === true;
         this.setCreatedAt(new Date(attributes.get('created_at')));
         this.setTaskId(attributes.get('task_id'));
         this.setProgressId(attributes.get('progress_id'));
