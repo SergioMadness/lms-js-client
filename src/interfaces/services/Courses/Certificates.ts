@@ -10,6 +10,15 @@ export interface IssuedCertificate {
     pdfUrl: string | null;
 }
 
+/** A certificate of the student, as the list of all of them gives it */
+export interface UserCertificate extends IssuedCertificate {
+    /** 'course' or 'program' */
+    processType: string;
+    processId: string;
+    /** Title of the course or program, null when it is gone */
+    title: string | null;
+}
+
 /** The names printed on a certificate; each falls back to the one of the profile */
 export interface CertificateNames {
     firstName?: string;
@@ -21,6 +30,11 @@ export interface CertificateNames {
  * Interface for service to work with certificates (lms-certificates B2C)
  */
 export interface Certificates {
+    /**
+     * Every certificate issued to the student on this site, newest first
+     */
+    list(): Promise<UserCertificate[]>;
+
     /**
      * Show the certificate of a course: the lesson `certificate` is passed by it
      */

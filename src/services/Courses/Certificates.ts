@@ -1,6 +1,8 @@
 import * as constants from '../HttpMethods';
 import { WebService } from "../WebService";
-import { CertificateNames, Certificates as ICertificates, IssuedCertificate } from '../../interfaces/services/Courses/Certificates';
+import { CertificateNames, Certificates as ICertificates, IssuedCertificate, UserCertificate } from '../../interfaces/services/Courses/Certificates';
+
+export const METHOD_GET_USER_CERTIFICATES = '/api/v2/certificates';
 
 export const METHOD_CREATE_CERTIFICATE = '/api/v2/certificates/{courseId}/{taskId}';
 
@@ -20,6 +22,23 @@ export const METHOD_GET_PROGRAM_CERTIFICATE_PDF = '/api/v2/certificates/programs
  * `template-not-found`, 503 when the picture could not be made.
  */
 export class Certificates extends WebService implements ICertificates {
+
+    async list(): Promise<UserCertificate[]> {
+        const response = await this.getTransport().send(METHOD_GET_USER_CERTIFICATES, constants.HTTP_METHOD_GET, new Map());
+        // the items of a list come as maps or as plain objects, depending on the transport
+        const read = (item: any, key: string) => (item instanceof Map ? item.get(key) : item[key]) ?? null;
+
+        return (response.data || []).map((item: any) => ({
+            id: read(item, 'id'),
+            number: read(item, 'number'),
+            createdAt: read(item, 'created_at'),
+            imageUrl: read(item, 'image_url'),
+            pdfUrl: read(item, 'pdf_url'),
+            processType: read(item, 'process_type'),
+            processId: read(item, 'process_id'),
+            title: read(item, 'title'),
+        }));
+    }
 
     /**
      * Show the certificate of a course
