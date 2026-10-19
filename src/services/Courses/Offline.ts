@@ -36,6 +36,11 @@ export class Offline extends WebService implements IOffline {
             tasks: data.get('tasks') ?? [],
             order: data.get('order') ?? [],
             media: data.get('media') ?? [],
+            videos: (data.get('videos') ?? []).map((video: any) => ({
+                source: video.source,
+                url: video.url,
+                size: video.size ?? null,
+            })),
         };
     }
 }

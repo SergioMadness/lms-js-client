@@ -32,4 +32,22 @@ export interface OfflinePackage {
 
     /** Absolute urls of the images the lessons refer to */
     media: string[];
+
+    /**
+     * Videos that can be taken offline: a file of the storage (<video>, <source>)
+     * or a Kinescope embed (<iframe>) whose download the account allows
+     */
+    videos: OfflineVideo[];
+}
+
+export interface OfflineVideo {
+
+    /** The src attribute as it stands in the html, the key the client looks it up by */
+    source: string;
+
+    /** Absolute url of the MP4 to download; may be signed and short-lived */
+    url: string;
+
+    /** Bytes, when the server knows them */
+    size: number | null;
 }
