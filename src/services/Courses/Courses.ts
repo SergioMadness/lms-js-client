@@ -1,7 +1,7 @@
 import * as constants from '../HttpMethods';
 import { ListWebService } from "../ListWebService";
 import { Course } from "../../interfaces/models/Courses/Course";
-import { Courses as ICourses } from "../../interfaces/services/Courses/Courses";
+import { Courses as ICourses, ScormLaunch } from "../../interfaces/services/Courses/Courses";
 import { Course as CourseModel } from '../../models/Courses/Course';
 import { Paginator as IPaginator } from '../../interfaces/models/Paginator';
 import { Paginator } from '../../models/Paginator';
@@ -9,6 +9,8 @@ import { Paginator } from '../../models/Paginator';
 export const METHOD_GET_COURSES = '/api/v2/courses';
 
 export const METHOD_GET_COURSE = '/api/v2/courses/{id}';
+
+export const METHOD_SCORM_LAUNCH = '/api/v2/courses/{courseId}/scorm/launch';
 
 /**
  * Service to work with courses
@@ -29,6 +31,17 @@ export class Courses extends ListWebService<Course> implements ICourses {
             ['id', id]
         ]));
         return this.create(response.data);
+    }
+
+    async scormLaunch(courseId: string): Promise<ScormLaunch> {
+        const response = await this.getTransport().send(METHOD_SCORM_LAUNCH, constants.HTTP_METHOD_POST, new Map([
+            ['courseId', courseId]
+        ]));
+
+        return {
+            url: response.data.get('url'),
+            expiresAt: response.data.get('expires_at') ?? null,
+        };
     }
 
     create(attributes: Map<string, any>): Course {

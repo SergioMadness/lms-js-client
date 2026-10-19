@@ -19,6 +19,7 @@ export class Course extends Model implements CourseModel, HasPrices {
     public hasAccess: boolean;
     public noAccessMessage: string;
     public noAccessCode: string;
+    public scorm: boolean = false;
     private prices: Array<Price> = [];
 
     constructor(attributes: Map<string, any>) {
@@ -55,6 +56,7 @@ export class Course extends Model implements CourseModel, HasPrices {
         this.hasAccess = attributes.get('has_access');
         this.noAccessMessage = attributes.get('why_not_message');
         this.noAccessCode = attributes.get('why_not_code');
+        this.scorm = attributes.get('scorm') === true;
 
         if (attributes.get('prices')) {
             // nested objects of the answer are plain objects, only the top level is a Map

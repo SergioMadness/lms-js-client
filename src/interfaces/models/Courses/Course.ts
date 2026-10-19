@@ -16,4 +16,7 @@ export interface Course extends Model<Course> {
 
     /** Description */
     readonly description: string;
+
+    /** A SCORM package: no lessons, played through Courses.scormLaunch */
+    readonly scorm: boolean;
 }
