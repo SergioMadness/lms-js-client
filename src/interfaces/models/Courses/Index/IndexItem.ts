@@ -23,6 +23,12 @@ export interface IndexItem {
     /** Step failed */
     isFailed(): boolean;
 
+    /** The step is closed by its schedule or by the schedule of a section above it */
+    isScheduled(): boolean;
+
+    /** When the step closed by a schedule opens (ISO 8601); null when it is not known yet */
+    getOpensAt(): string | null;
+
     /** Get children */
     children(): Array<IndexItem>;
 }

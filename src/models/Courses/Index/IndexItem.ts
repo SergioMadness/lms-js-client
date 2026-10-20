@@ -17,7 +17,26 @@ export class IndexItem implements IIndexItem {
 
     private failed: boolean;
 
+    private scheduled: boolean = false;
+
+    private opensAt: string | null = null;
+
     private items: Array<IIndexItem> = new Array<IIndexItem>();
+
+    setScheduled(flag: boolean, opensAt: string | null = null): IndexItem {
+        this.scheduled = flag;
+        this.opensAt = opensAt;
+
+        return this;
+    }
+
+    isScheduled(): boolean {
+        return this.scheduled;
+    }
+
+    getOpensAt(): string | null {
+        return this.opensAt;
+    }
 
     setId(id: string): IndexItem {
         this.id = id;

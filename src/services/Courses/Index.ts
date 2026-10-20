@@ -41,6 +41,7 @@ export class Index extends WebService implements IIndex {
         result.setIsPassed(data.get('isPassed'));
         result.setIsSuccessful(data.get('isSuccessful'));
         result.setType(data.get('type'));
+        result.setScheduled(Boolean(data.get('isScheduled')), data.get('opensAt') ?? null);
 
         const children = data.get('children') ?? [];
         children.forEach((item: any) => {
