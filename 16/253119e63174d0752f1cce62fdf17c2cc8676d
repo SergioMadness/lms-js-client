@@ -1,0 +1,90 @@
+src/services/Users.ts
+  s_a48d96512c20bd::t_59eb6f11d14948 44,50-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "0.0.64",
+  "base_commit_sha": "16253119e63174d0752f1cce62fdf17c2cc8676d",
+  "prompts": {},
+  "sessions": {
+    "s_a48d96512c20bd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5e1a29eb-b23c-47ac-a469-6bf716175de5",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "SergioMadness <madness.sergio@gmail.com>",
+      "usage": [
+        {
+          "model": "claude-opus-5-5",
+          "input_tokens": 158,
+          "output_tokens": 43505,
+          "cache_read_tokens": 7973235,
+          "cache_write_5m_tokens": 0,
+          "cache_write_1h_tokens": 213584,
+          "assistant_messages": 79,
+          "turns": 1,
+          "ai_wall_ms": 230254,
+          "first_ts": "2026-10-24T16:18:45.938Z",
+          "last_ts": "2026-10-24T16:25:04.353Z",
+          "session_total_output_tokens": 43505
+        }
+      ],
+      "tools": [
+        {
+          "tool": "Bash",
+          "model": "claude-opus-5-5",
+          "calls": 34,
+          "result_chars": 107839,
+          "result_input_tokens": 66,
+          "result_cache_write_5m_tokens": 0,
+          "result_cache_write_1h_tokens": 60582,
+          "call_output_tokens": 17552
+        },
+        {
+          "tool": "Edit",
+          "model": "claude-opus-5-5",
+          "calls": 1,
+          "result_chars": 88,
+          "result_input_tokens": 0,
+          "result_cache_write_5m_tokens": 0,
+          "result_cache_write_1h_tokens": 0,
+          "call_output_tokens": 574
+        },
+        {
+          "tool": "Grep",
+          "model": "claude-opus-5-5",
+          "calls": 3,
+          "result_chars": 6091,
+          "result_input_tokens": 6,
+          "result_cache_write_5m_tokens": 0,
+          "result_cache_write_1h_tokens": 3328,
+          "call_output_tokens": 621
+        },
+        {
+          "tool": "PowerShell",
+          "model": "claude-opus-5-5",
+          "calls": 2,
+          "result_chars": 584,
+          "result_input_tokens": 4,
+          "result_cache_write_5m_tokens": 0,
+          "result_cache_write_1h_tokens": 786,
+          "call_output_tokens": 492
+        },
+        {
+          "tool": "Read",
+          "model": "claude-opus-5-5",
+          "calls": 1,
+          "result_chars": 791,
+          "result_input_tokens": 2,
+          "result_cache_write_5m_tokens": 0,
+          "result_cache_write_1h_tokens": 496,
+          "call_output_tokens": 175
+        }
+      ],
+      "context_at_start_tokens": 67704,
+      "accepted_lines": 15,
+      "overridden_lines": 0
+    }
+  }
+}
