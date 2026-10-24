@@ -41,16 +41,26 @@ export class Users extends WebService implements IUserService {
         middleName: string = '',
         phone: string = '',
     ): Promise<IUserModel> {
-        const response = await this.getTransport().send(METHOD_REGISTRATION, constants.HTTP_METHOD_POST, new Map<string, any>([
+        const data = new Map<string, any>([
             ['first_name', firstName],
-            ['middle_name', middleName],
             ['last_name', lastName],
             ['email', email],
-            ['phone', phone],
             ['password', password],
             ['politics', true],
-            ['date_of_birth', dateOfBirth],
-        ]));
+        ]);
+        // the optional fields go only when filled: the API turns an empty string
+        // into null, and `phone` is `sometimes|required` there, so an empty
+        // phone refused every registration
+        if (middleName) {
+            data.set('middle_name', middleName);
+        }
+        if (phone) {
+            data.set('phone', phone);
+        }
+        if (dateOfBirth) {
+            data.set('date_of_birth', dateOfBirth);
+        }
+        const response = await this.getTransport().send(METHOD_REGISTRATION, constants.HTTP_METHOD_POST, data);
 
         return this.create(response.data);
     }
